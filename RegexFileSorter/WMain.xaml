@@ -1,0 +1,66 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rfs="clr-namespace:RegexFileSorter"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    x:Name="MainWindow1" x:Class="WMain"
+    mc:Ignorable="d"
+        Title="MainWindow" Height="385.744" Width="511.307">
+    <Window.Resources>
+        <System:String x:Key="SFolder">TextBox</System:String>
+    </Window.Resources>
+    <Window.DataContext>
+        <rfs:Settings/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!--#region Source -->
+            <Label Content="Source Folder" Grid.Row="0" Margin="5,0" HorizontalContentAlignment="Right"/>
+            <TextBox Text="{Binding SFolder}" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2,0"/>
+            <Button x:Name="B_SelectS" Content="Select Folder" Margin="5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0"/>
+            <!--#endregion-->
+            <Label Content="Destination Folder" Grid.Row="1" Margin="5,0" HorizontalContentAlignment="Right"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding DFolder}" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="2,0"/>
+            <Button x:Name="B_SelectD" Content="Select Folder" Margin="5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+
+            <Label Content="Regex" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Right" Margin="5,0" />
+            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" Width="100" Margin="2,5"/>
+
+            <StackPanel Orientation="Horizontal"  Grid.Row="3" Grid.Column="1">
+                <CheckBox Content="Sort in source folder" Margin="2,0,2,5" IsChecked="{Binding InPlace}"/>
+                <CheckBox Content="Create new folders" Margin="2,0,2,5" IsChecked="{Binding CreateNew}"/>
+            </StackPanel>
+        </Grid>
+
+        <ListView Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5">
+            <Button Content="Close" />
+            <Button Content="Sort" Margin="5,0" />
+        </StackPanel>
+    </Grid>
+</Window>
