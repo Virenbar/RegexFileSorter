@@ -7,60 +7,111 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     x:Name="MainWindow1" x:Class="WMain"
     mc:Ignorable="d"
-        Title="MainWindow" Height="385.744" Width="511.307">
+        Title="RegexFileSorter" MinHeight="300" MinWidth="400" Height="350" Width="500">
     <Window.Resources>
-        <System:String x:Key="SFolder">TextBox</System:String>
+        <DataTemplate x:Key="SortedTemplate" DataType="{x:Type rfs:SortedFolder}">
+            <Expander HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Padding" Value="2,0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBox Text="{Binding Name}" IsReadOnly="True" />
+                        <TextBlock Text="{Binding Files.Count}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Status}" FontStyle="Italic" />
+                    </StackPanel>
+                </Expander.Header>
+                <ListView ItemsSource="{Binding Files}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FileName}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Expander>
+        </DataTemplate>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5,0" />
+        </Style>
     </Window.Resources>
     <Window.DataContext>
-        <rfs:Settings/>
+        <rfs:Config />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <Grid Margin="0">
+        <Menu>
+            <MenuItem Header="Configs" IsEnabled="False">
+                <MenuItem Header="Load" />
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="GridConfig" Grid.Row="1" Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <!--#region Source -->
-            <Label Content="Source Folder" Grid.Row="0" Margin="5,0" HorizontalContentAlignment="Right"/>
-            <TextBox Text="{Binding SFolder}" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2,0"/>
-            <Button x:Name="B_SelectS" Content="Select Folder" Margin="5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0"/>
+            <Label Content="Source Folder" Grid.Row="0" Margin="5,0" HorizontalContentAlignment="Right" />
+            <TextBox Text="{Binding SFolder}" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2,0" />
+            <Button x:Name="B_SelectS" Content="Select" Margin="5,0" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" />
             <!--#endregion-->
-            <Label Content="Destination Folder" Grid.Row="1" Margin="5,0" HorizontalContentAlignment="Right"/>
-            <TextBox TextWrapping="Wrap" Text="{Binding DFolder}" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="2,0"/>
-            <Button x:Name="B_SelectD" Content="Select Folder" Margin="5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
-
+            <!--#region Destination -->
+            <Label Content="Destination Folder" Grid.Row="1" Margin="5,0" HorizontalContentAlignment="Right" />
+            <TextBox TextWrapping="Wrap" Text="{Binding DFolder}" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="2,0" />
+            <Button x:Name="B_SelectD" Content="Select" Margin="5,0" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" />
+            <!--#endregion-->
             <Label Content="Regex" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Right" Margin="5,0" />
-            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" Width="100" Margin="2,5"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding Regex}" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"  Margin="2,5" />
 
-            <StackPanel Orientation="Horizontal"  Grid.Row="3" Grid.Column="1">
-                <CheckBox Content="Sort in source folder" Margin="2,0,2,5" IsChecked="{Binding InPlace}"/>
-                <CheckBox Content="Create new folders" Margin="2,0,2,5" IsChecked="{Binding CreateNew}"/>
-            </StackPanel>
+            <WrapPanel Orientation="Horizontal"  Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
+                <CheckBox Content="Sort in source folder" Margin="2,0,2,0" IsChecked="{Binding InPlace}" />
+                <CheckBox Content="Create new folders" Margin="2,0,2,0" IsChecked="{Binding CreateNew}" />
+                <CheckBox Content="Search for folder" Margin="2,0,2,0" IsChecked="{Binding SearchFolder}" ToolTip="Search for folder starting with matched string" />
+            </WrapPanel>
+            <Button x:Name="B_Preview" Content="Preview" Margin="5,0" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="3" />
         </Grid>
-
-        <ListView Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <TextBlock Text="Sorted files" Grid.Row="2" FontWeight="Bold" Margin="5,0" />
+        <ListView x:Name="SortValid" Grid.Row="3" ItemTemplate="{DynamicResource SortedTemplate}" Margin="5">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.DataContext>
+                <rfs:SortedFolder />
+            </ListView.DataContext>
         </ListView>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5">
+        <TextBlock Text="Unsorted files" Grid.Row="4" FontWeight="Bold" Margin="5,0" />
+        <ListView x:Name="SortInvalid" Grid.Row="5" ItemTemplate="{DynamicResource SortedTemplate}" Margin="5">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Focusable" Value="false" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.DataContext>
+                <rfs:SortedFolder />
+            </ListView.DataContext>
+        </ListView>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5">
             <Button Content="Close" />
-            <Button Content="Sort" Margin="5,0" />
+            <Button x:Name="B_Sort" Content="Move Files" Margin="5,0" IsEnabled="False" />
         </StackPanel>
     </Grid>
 </Window>

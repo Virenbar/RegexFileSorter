@@ -56,72 +56,24 @@ Partial Public NotInheritable Class MySettings
     <Global.System.Configuration.UserScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-    Public Property SFolder() As String
-        Get
-            Return CType(Me("SFolder"),String)
-        End Get
-        Set
-            Me("SFolder") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-    Public Property DFolder() As String
-        Get
-            Return CType(Me("DFolder"),String)
-        End Get
-        Set
-            Me("DFolder") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-    Public Property Regex() As String
-        Get
-            Return CType(Me("Regex"),String)
-        End Get
-        Set
-            Me("Regex") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-    Public Property InPlace() As Boolean
-        Get
-            Return CType(Me("InPlace"),Boolean)
-        End Get
-        Set
-            Me("InPlace") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-    Public Property CreateNew() As Boolean
-        Get
-            Return CType(Me("CreateNew"),Boolean)
-        End Get
-        Set
-            Me("CreateNew") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
     Public Property JSONConfig() As String
         Get
             Return CType(Me("JSONConfig"),String)
         End Get
         Set
             Me("JSONConfig") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property JSONConfigs() As String
+        Get
+            Return CType(Me("JSONConfigs"),String)
+        End Get
+        Set
+            Me("JSONConfigs") = value
         End Set
     End Property
 End Class
