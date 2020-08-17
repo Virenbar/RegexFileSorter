@@ -85,6 +85,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.vb" />
     <Compile Include="Config.vb" />
+    <Compile Include="Converters.vb" />
     <Compile Include="MessageBox\MessageBoxWPF.vb" />
     <Compile Include="WInputBox.xaml.vb">
       <DependentUpon>WInputBox.xaml</DependentUpon>

@@ -30,7 +30,7 @@ Public Class Sorter
 				If FolderName.StartsWith(SF.Name, StringComparison.CurrentCultureIgnoreCase) Then
 					SF.Path = Folder
 					SF.IsValid = True
-					SF.Status = $"Found {FolderName}"
+					SF.Status = $"Found ""{FolderName}"""
 					Exit For
 				End If
 			Next
@@ -56,6 +56,7 @@ Public Class Sorter
 		For Each SF In SFList
 			If Not SF.IsValid Then Continue For
 			For Each F In SF.Files
+				If File.Exists(F.OutPath) Then File.Delete(F.OutPath)
 				File.Move(F.InPath, F.OutPath)
 			Next
 		Next

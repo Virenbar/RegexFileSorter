@@ -11,12 +11,6 @@
 		Me.IsValid = False
 	End Sub
 
-	Public ReadOnly Property Count As Integer
-		Get
-			Return Files.Count
-		End Get
-	End Property
-
 	Public ReadOnly Property Files As New List(Of SortedFile)
 	Public Property IsValid As Boolean
 	Public Property Name As String

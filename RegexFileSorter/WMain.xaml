@@ -5,10 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rfs="clr-namespace:RegexFileSorter"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Converters="clr-namespace:RegexFileSorter.Converters"
     x:Name="MainWindow1" x:Class="WMain"
     mc:Ignorable="d"
-        Title="RegexFileSorter" MinHeight="300" MinWidth="400" Height="350" Width="500">
+        Title="RegexFileSorter" MinHeight="500" MinWidth="400" Height="350" Width="500">
     <Window.Resources>
+        <Converters:IntToGridLengthConverter x:Key="IntToGridLengthConverter" />
         <DataTemplate x:Key="SortedTemplate" DataType="{x:Type rfs:SortedFolder}">
             <Expander HorizontalAlignment="Stretch">
                 <Expander.Header>
@@ -32,7 +34,7 @@
                 </ListView>
             </Expander>
         </DataTemplate>
-        <Style TargetType="Button">
+        <Style TargetType="{x:Type Button}">
             <Setter Property="Padding" Value="5,0" />
         </Style>
     </Window.Resources>
@@ -44,9 +46,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition MinHeight="100" Height="{Binding Items.Count, Converter={StaticResource IntToGridLengthConverter}, ElementName=SortValid, Mode=OneWay}" />
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition MinHeight="100" Height="{Binding Items.Count, Converter={StaticResource IntToGridLengthConverter}, ElementName=SortInvalid, Mode=OneWay}" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Menu>
@@ -89,7 +91,7 @@
         <TextBlock Text="Sorted files" Grid.Row="2" FontWeight="Bold" Margin="5,0" />
         <ListView x:Name="SortValid" Grid.Row="3" ItemTemplate="{DynamicResource SortedTemplate}" Margin="5">
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+                <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
@@ -100,7 +102,7 @@
         <TextBlock Text="Unsorted files" Grid.Row="4" FontWeight="Bold" Margin="5,0" />
         <ListView x:Name="SortInvalid" Grid.Row="5" ItemTemplate="{DynamicResource SortedTemplate}" Margin="5">
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+                <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="Focusable" Value="false" />
                 </Style>
