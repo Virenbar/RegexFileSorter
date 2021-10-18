@@ -3,18 +3,17 @@ Imports RegexFileSorter.Configuration
 Imports Microsoft.WindowsAPICodePack.Dialogs
 Imports System.Collections.ObjectModel
 
-Class WMain
+Public Class WMain
 	Private ReadOnly COFD As New CommonOpenFileDialog() With {.IsFolderPicker = True}
-	Private SFValid As New ObservableCollection(Of SortedFolder)
-	Private SFInvalid As New ObservableCollection(Of SortedFolder)
+	Private ReadOnly SFInvalid As New ObservableCollection(Of SortedFolder)
+	Private ReadOnly SFValid As New ObservableCollection(Of SortedFolder)
 
 	'Private SFValidView = New
 	Public Sub New()
-		' Этот вызов является обязательным для конструктора.
 		InitializeComponent()
 
-		' Добавить код инициализации после вызова InitializeComponent().
-		DataContext = Current
+		'DataContext = Windows.Application.Current
+		'GridConfig.DataContext = Current
 		SortValid.ItemsSource = SFValid
 		SortValid.Items.SortDescriptions.Add(New SortDescription("Name", ListSortDirection.Ascending))
 		SortInvalid.ItemsSource = SFInvalid
@@ -27,7 +26,7 @@ Class WMain
 	End Sub
 
 	Private Sub B_Preview_Click(sender As Object, e As RoutedEventArgs) Handles B_Preview.Click
-		If Not Current.Regex.Contains("?<S>") Then MessageBoxWPF.Show("Test") : Exit Sub
+		If Not Current.Regex.Contains("?<S>") Then MessageBoxWPF.Show("Regex missing ?<S> capture group") : Exit Sub
 		SFValid.Clear()
 		SFInvalid.Clear()
 
@@ -70,6 +69,14 @@ Class WMain
 		Finally
 			B_Sort.IsEnabled = False
 		End Try
+	End Sub
+
+	Private Sub MI_Save_Click(sender As Object, e As RoutedEventArgs) Handles MI_Save.Click
+		Dim F = New WInputBox()
+		If F.ShowDialog() Then
+			Dim VM = DirectCast(DataContext, ConfigurationVM)
+			VM.SaveAs(F.Input)
+		End If
 	End Sub
 
 End Class

@@ -16,6 +16,17 @@ Public Class Config
 		SearchFolder = True
 	End Sub
 
+	Public Sub New(Config As Config)
+		SFolder = Config.SFolder
+		DFolder = Config.DFolder
+		Regex = Config.Regex
+		InPlace = Config.InPlace
+		CreateNew = Config.CreateNew
+		SearchFolder = Config.SearchFolder
+	End Sub
+
+#Region "Properties"
+
 	Public Property CreateNew As Boolean
 
 	Public Property DFolder As String
@@ -50,10 +61,16 @@ Public Class Config
 		End Set
 	End Property
 
+#End Region
+
+#Region "INotify"
+
 	Private Sub OnPropertyChanged(<CallerMemberName()> Optional ByVal propertyName As String = Nothing)
 		RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 	End Sub
 
 	Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+#End Region
 
 End Class

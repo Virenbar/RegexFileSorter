@@ -85,14 +85,22 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.vb" />
     <Compile Include="Config.vb" />
-    <Compile Include="Converters.vb" />
+    <Compile Include="ConfigurationVM.vb" />
+    <Compile Include="Controls\TextBoxFolder.vb" />
+    <Compile Include="Converters\IntToBooleanConverter.vb" />
+    <Compile Include="Converters\IntToGridLengthConverter.vb" />
     <Compile Include="MessageBox\MessageBoxWPF.vb" />
+    <Compile Include="Types\ObservableObject.vb" />
     <Compile Include="WInputBox.xaml.vb">
       <DependentUpon>WInputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageBox\WMessageBox.xaml.vb">
       <DependentUpon>WMessageBox.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WInputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,12 +177,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\icons8\ok48.png" />
+    <Resource Include="Resources\icons8\synchronize48.png" />
+    <Resource Include="Resources\icons8\folder48.png" />
+    <Resource Include="MessageBox\RFS.png" />
     <Resource Include="Icon\RFS.png" />
     <Content Include="Icon\RFS.svg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\RFS.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="V\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

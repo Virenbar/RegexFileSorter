@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RegexFileSorter"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="Window" x:Class="WMessageBox"
         mc:Ignorable="d"
-        Title="WMessageBox" SizeToContent="WidthAndHeight" MinWidth="100" MaxWidth="450"  ResizeMode="NoResize">
+        Title="WMessageBox" SizeToContent="WidthAndHeight" MinWidth="100" MaxWidth="450"  ResizeMode="NoResize" Icon="/RegexFileSorter;component/Resources/RFS.ico">
     <Window.Resources>
         <System:String x:Key="Lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac elementum ipsum. Donec eu ligula nec ligula porttitor dignissim vitae eu mi. In ultrices dictum erat a euismod. Integer a libero blandit, interdum ex placerat, sollicitudin nibh. Ut ac ipsum imperdiet, mattis tellus accumsan, accumsan augue. Integer semper mi sit.</System:String>
     </Window.Resources>
@@ -19,7 +19,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Image x:Name="Image" Source="Resources/RFS.ico" Margin="15" MaxWidth="32" MaxHeight="32" Grid.Row="0" Grid.Column="0" />
+        <Image x:Name="Image" Source="RFS.png" Margin="15" MaxWidth="32" MaxHeight="32" Grid.Row="0" Grid.Column="0" />
         <TextBlock x:Name="Text" Margin="0,0,15,0" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Text="{DynamicResource Lorem}" />
         <StackPanel HorizontalAlignment="Right" Margin="10" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
             <Button x:Name="Yes" Content="Yes" Margin="5" Width="50" />

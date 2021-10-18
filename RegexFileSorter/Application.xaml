@@ -6,8 +6,10 @@
     StartupUri="WMain.xaml"
 ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-
         <System:String x:Key="DFolder">TextBox</System:String>
-
+        <Style TargetType="MenuItem">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -27,7 +27,7 @@ Public Class Sorter
 		ElseIf Current.SearchFolder Then
 			For Each Folder In Directory.GetDirectories(Current.OutFolder)
 				Dim FolderName = Path.GetFileName(Folder)
-				If FolderName.StartsWith(SF.Name, StringComparison.CurrentCultureIgnoreCase) Then
+				If FolderName.ToLower.Contains(SF.Name.ToLower) Then
 					SF.Path = Folder
 					SF.IsValid = True
 					SF.Status = $"Found ""{FolderName}"""
