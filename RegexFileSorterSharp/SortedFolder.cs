@@ -17,11 +17,11 @@ namespace RegexFileSorter
             IsValid = false;
         }
 
-        public List<SortedFile> Files { get; }
+        public List<SortedFile> Files { get; } = new();
         public bool IsValid { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
         public string Status { get; set; }
-        public record SortedFile(string Filename, string InPath, string OutPath);
+        public record SortedFile(string FileName, string InPath, string OutPath);
     }
 }

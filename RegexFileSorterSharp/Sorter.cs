@@ -53,6 +53,14 @@ namespace RegexFileSorter
                 }
                 else { SF.Status = "Not Found"; }
             }
+
+            foreach (var File in group)
+            {
+                var FileName = Path.GetFileName(File);
+                var OutFile = Path.Combine(SF.Path, FileName);
+                SF.Files.Add(new SortedFolder.SortedFile(FileName, File, OutFile));
+            }
+
             return SF;
         }
 

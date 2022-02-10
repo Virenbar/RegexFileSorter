@@ -8,11 +8,13 @@
 
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icon\RFS.png" />
     <None Remove="Icon\RFS.svg" />
+    <None Remove="Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
@@ -45,10 +48,13 @@
     <Resource Include="Resources\Icons8\folder48.png" />
     <Resource Include="Resources\Icons8\ok48.png" />
     <Resource Include="Resources\Icons8\synchronize48.png" />
+    <Resource Include="Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\MessageBox\" />
+    <Page Update="Styles\ImageButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

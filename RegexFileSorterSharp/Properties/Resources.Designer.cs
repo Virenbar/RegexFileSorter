@@ -71,21 +71,21 @@ namespace RegexFileSorterSharp.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static byte[] ok48 {
+        internal static System.Drawing.Icon Icon {
             get {
-                object obj = ResourceManager.GetObject("ok48", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static byte[] RFS {
+        internal static byte[] ok48 {
             get {
-                object obj = ResourceManager.GetObject("RFS", resourceCulture);
+                object obj = ResourceManager.GetObject("ok48", resourceCulture);
                 return ((byte[])(obj));
             }
         }

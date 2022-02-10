@@ -1,0 +1,30 @@
+﻿using System.Windows;
+
+namespace RegexFileSorter
+{
+    /// <summary>
+    /// Логика взаимодействия для WInputBox.xaml
+    /// </summary>
+    public partial class WInputBox : Window
+    {
+        public WInputBox()
+        {
+            InitializeComponent();
+        }
+
+        public string Input => TB_Input.Text;
+
+        private void B_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        private void B_Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (Input.Length == 0) { return; }
+            DialogResult = true;
+            Close();
+        }
+    }
+}
