@@ -3,7 +3,7 @@ using System.IO;
 
 namespace RegexFileSorter
 {
-    internal class FileMover
+    internal static class FileMover
     {
         /// <summary>
         /// Moves all valid files from <see cref="SortedFolder.SortedFile.InPath"/> to <see cref="SortedFolder.SortedFile.OutPath"/>

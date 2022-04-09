@@ -40,7 +40,7 @@ namespace RegexFileSorter
             {
                 var Name = Config.Key;
                 var LMI = new MenuItem { Header = Name };
-                LMI.Click += (sender, e) =>
+                LMI.Click += (_, e) =>
                 {
                     Configuration.SetConfig(Name);
                     OnPropertyChanged(nameof(Current));
@@ -48,7 +48,7 @@ namespace RegexFileSorter
                 LoadMenu.Add(LMI);
 
                 var DMI = new MenuItem { Header = Name };
-                DMI.Click += (sender, e) =>
+                DMI.Click += (_, e) =>
                 {
                     Configuration.Delete(Name);
                     UpdateMenu();

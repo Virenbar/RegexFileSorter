@@ -29,7 +29,7 @@ namespace RegexFileSorter
                 foreach (var Folder in Directory.GetDirectories(Config.OutFolder))
                 {
                     var FolderName = Path.GetFileName(Folder);
-                    if (FolderName.ToLower().Contains(SF.Name.ToLower()))
+                    if (FolderName.ToLowerInvariant().Contains(SF.Name.ToLowerInvariant()))
                     {
                         SF.Path = Folder;
                         SF.IsValid = true;

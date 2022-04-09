@@ -7,7 +7,7 @@ namespace RegexFileSorter.Controls
 {
     internal class TextBoxFolder : TextBox
     {
-        public TextBoxFolder() : base()
+        public TextBoxFolder()
         {
             base.IsReadOnly = true;
         }

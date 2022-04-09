@@ -77,7 +77,7 @@ namespace RegexFileSorter
                 FileMover.MoveFiles(SFValid);
                 SFValid.Clear();
             }
-            catch (Exception) { }
+            catch (Exception E) { MessageBoxWPF.ShowError(E.Message); }
             finally
             {
                 B_Sort.IsEnabled = false;
@@ -86,7 +86,7 @@ namespace RegexFileSorter
 
         private void MI_Save_Click(object sender, RoutedEventArgs e)
         {
-            var F = new WInputBox() { Owner = this };
+            var F = new WInputBox { Owner = this };
             while (F.ShowDialog() ?? false)
             {
                 Name = F.Input;
@@ -94,7 +94,7 @@ namespace RegexFileSorter
                 {
                     if (MessageBoxWPF.AskYesNo($"Profile \"{Name}\" already exsists. Replace it?") == MessageBoxResult.No)
                     {
-                        F = new WInputBox() { Owner = this, Input = Name };
+                        F = new WInputBox { Owner = this, Input = Name };
                         continue;
                     }
                 }

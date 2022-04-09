@@ -21,14 +21,12 @@ namespace RegexFileSorter
         private void B_Cancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
-            //Close();
         }
 
         private void B_Save_Click(object sender, RoutedEventArgs e)
         {
             if (Input.Length == 0) { return; }
             DialogResult = true;
-            //Close();
         }
     }
 }
