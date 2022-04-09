@@ -20,14 +20,17 @@ namespace RegexFileSorter
             }
         }
 
+        public ObservableCollection<MenuItem> DeleteMenu { get; } = new();
+
+        public ObservableCollection<MenuItem> LoadMenu { get; } = new();
+
+        public bool Contains(string name) => Configuration.Contains(name);
+
         public void SaveAs(string name)
         {
             Configuration.SaveAs(name);
             UpdateMenu();
         }
-
-        public ObservableCollection<MenuItem> LoadMenu { get; } = new();
-        public ObservableCollection<MenuItem> DeleteMenu { get; } = new();
 
         private void UpdateMenu()
         {

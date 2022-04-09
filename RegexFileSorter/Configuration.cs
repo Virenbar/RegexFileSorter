@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegexFileSorter
 {
@@ -15,11 +11,15 @@ namespace RegexFileSorter
         static Configuration()
         {
             Current = new();
-            Configs = new() { { "C1", new() }, { "C2", new() }, { "C3", new() } };
+            Configs = new() { { "Default", new() } };
         }
 
-        public static Config Current { get; set; }
         public static Dictionary<string, Config> Configs { get; set; }
+        public static Config Current { get; set; }
+
+        public static bool Contains(string name) => Configs.ContainsKey(name);
+
+        public static void Delete(string name) => Configs.Remove(name);
 
         public static void LoadJSON()
         {
@@ -27,15 +27,13 @@ namespace RegexFileSorter
             if (File.Exists(ConfigsF)) { Configs = JsonConvert.DeserializeObject<Dictionary<string, Config>>(File.ReadAllText(ConfigsF)); }
         }
 
+        public static void SaveAs(string name) => Configs[name] = new Config(Current);
+
         public static void SaveJSON()
         {
             File.WriteAllText(CurrentF, JsonConvert.SerializeObject(Current));
             File.WriteAllText(ConfigsF, JsonConvert.SerializeObject(Configs));
         }
-
-        public static void Delete(string name) => Configs.Remove(name);
-
-        public static void SaveAs(string name) => Configs.Add(name, new Config(Current));
 
         public static void SetConfig(string name) => Current = new Config(Configs[name]);
     }

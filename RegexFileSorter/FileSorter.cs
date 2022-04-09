@@ -2,37 +2,31 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using static RegexFileSorter.Configuration;
 
 namespace RegexFileSorter
 {
-    internal static class Sorter
+    internal class FileSorter
     {
-        public static void MoveFiles(IEnumerable<SortedFolder> folders)
-        {
-            foreach (var SF in folders)
-            {
-                if (!SF.IsValid) { continue; }
-                foreach (var F in SF.Files)
-                {
-                    if (File.Exists(F.OutPath)) { File.Delete(F.OutPath); }
-                    File.Move(F.InPath, F.OutPath);
-                }
-            }
-        }
+        private readonly Config Config;
 
-        public static SortedFolder PrepareFiles(IGrouping<string, string> group)
+        public FileSorter(Config config) => Config = config;
+
+        public IReadOnlyList<SortedFolder> Folders { get; private set; }
+        public IReadOnlyList<SortedFolder> InvalidFolders => Folders.Where(F => !F.IsValid).ToList();
+        public IReadOnlyList<SortedFolder> ValidFolders => Folders.Where(F => F.IsValid).ToList();
+
+        public SortedFolder PrepareFiles(IGrouping<string, string> group)
         {
             var SF = new SortedFolder(group.Key);
-            SF.Path = Path.Combine(Current.OutFolder, SF.Name);
+            SF.Path = Path.Combine(Config.OutFolder, SF.Name);
             if (Directory.Exists(SF.Path))
             {
                 SF.IsValid = true;
                 SF.Status = "Found";
             }
-            else if (Current.SearchFolder)
+            else if (Config.SearchFolder)
             {
-                foreach (var Folder in Directory.GetDirectories(Current.OutFolder))
+                foreach (var Folder in Directory.GetDirectories(Config.OutFolder))
                 {
                     var FolderName = Path.GetFileName(Folder);
                     if (FolderName.ToLower().Contains(SF.Name.ToLower()))
@@ -46,7 +40,7 @@ namespace RegexFileSorter
 
             if (!SF.IsValid)
             {
-                if (Current.CreateNew)
+                if (Config.CreateNew)
                 {
                     SF.IsValid = true;
                     SF.Status = $"Create folder \"{SF.Name}\"";
@@ -64,17 +58,18 @@ namespace RegexFileSorter
             return SF;
         }
 
-        public static ILookup<string, string> ScanFiles()
+        public void SortFiles()
         {
             var Result = new List<(string Path, string Match)>();
-            var S = Directory.GetFiles(Current.SFolder);
-            var R = new Regex(Current.Regex);
+            var S = Directory.GetFiles(Config.SFolder);
+            var R = new Regex(Config.Regex);
             foreach (var File in S)
             {
                 var M = R.Match(Path.GetFileName(File));
                 if (M.Success) { Result.Add((File, M.Groups["S"].Value)); }
             }
-            return Result.ToLookup(X => X.Match, X => X.Path);
+            var RRR = Result.ToLookup(X => X.Match, X => X.Path);
+            Folders = RRR.Select(G => PrepareFiles(G)).ToList();
         }
     }
 }

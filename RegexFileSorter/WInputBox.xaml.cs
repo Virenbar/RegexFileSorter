@@ -12,19 +12,23 @@ namespace RegexFileSorter
             InitializeComponent();
         }
 
-        public string Input => TB_Input.Text;
+        public string Input
+        {
+            get => TB_Input.Text;
+            set => TB_Input.Text = value;
+        }
 
         private void B_Cancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
-            Close();
+            //Close();
         }
 
         private void B_Save_Click(object sender, RoutedEventArgs e)
         {
             if (Input.Length == 0) { return; }
             DialogResult = true;
-            Close();
+            //Close();
         }
     }
 }

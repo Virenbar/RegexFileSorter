@@ -54,6 +54,8 @@ namespace RegexFileSorter.Controls
 
         public static MessageBoxResult Show(string text, string title, MessageBoxButton buttons) => Show(text, title, buttons, MessageBoxImage.None);
 
+        public static MessageBoxResult AskYesNo(string text) => Show(text, T, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
         public static MessageBoxResult ShowError(string text) => Show(text, T, MessageBoxButton.OK, MessageBoxImage.Error);
 
         public static MessageBoxResult ShowWarning(string text) => Show(text, T, MessageBoxButton.OK, MessageBoxImage.Warning);

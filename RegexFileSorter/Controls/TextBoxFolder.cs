@@ -16,8 +16,11 @@ namespace RegexFileSorter.Controls
 
         public void SelectFolder()
         {
-            var F = new CommonOpenFileDialog { IsFolderPicker = true };
-            F.InitialDirectory = Text;
+            var F = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                InitialDirectory = Text
+            };
             if (F.ShowDialog() == CommonFileDialogResult.Ok) { Text = F.FileName; }
         }
 
