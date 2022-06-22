@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RegexFileSorterWF": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}

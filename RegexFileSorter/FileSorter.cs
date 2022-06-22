@@ -5,19 +5,30 @@ using System.Text.RegularExpressions;
 
 namespace RegexFileSorter
 {
-    internal class FileSorter
+    public class FileSorter
     {
-        private readonly Config Config;
+        private readonly Profile Config = ProfileManager.Current;
+        private readonly Dictionary<string, string> OutDirectories = new();
 
-        public FileSorter(Config config) => Config = config;
+        //public FileSorter(Profile config) => Config = config;
 
-        public IReadOnlyList<SortedFolder> Folders { get; private set; }
-        public IReadOnlyList<SortedFolder> InvalidFolders => Folders.Where(F => !F.IsValid).ToList();
-        public IReadOnlyList<SortedFolder> ValidFolders => Folders.Where(F => F.IsValid).ToList();
+        public IReadOnlyList<GroupedFiles> Folders { get; private set; }
+        public IReadOnlyList<GroupedFiles> InvalidFolders => Folders.Where(F => !F.IsValid).ToList();
+        public IReadOnlyList<GroupedFiles> ValidFolders => Folders.Where(F => F.IsValid).ToList();
 
-        public SortedFolder PrepareFiles(IGrouping<string, string> group)
+        private void RefreshOutDirectories()
         {
-            var SF = new SortedFolder(group.Key);
+            OutDirectories.Clear();
+            foreach (var Folder in Directory.GetDirectories(Config.OutFolder))
+            {
+                var FolderName = Path.GetFileName(Folder);
+                OutDirectories.Add(FolderName.ToLowerInvariant(), Folder);
+            }
+        }
+
+        public GroupedFiles PrepareFiles(IGrouping<string, string> group)
+        {
+            var SF = new GroupedFiles(group.Key);
             SF.Path = Path.Combine(Config.OutFolder, SF.Name);
             if (Directory.Exists(SF.Path))
             {
@@ -52,7 +63,7 @@ namespace RegexFileSorter
             {
                 var FileName = Path.GetFileName(File);
                 var OutFile = Path.Combine(SF.Path, FileName);
-                SF.Files.Add(new SortedFolder.SortedFile(FileName, File, OutFile));
+                SF.Files.Add(new GroupedFiles.File(FileName, File, OutFile));
             }
 
             return SF;
@@ -60,6 +71,8 @@ namespace RegexFileSorter
 
         public void SortFiles()
         {
+            RefreshOutDirectories();
+
             var Result = new List<(string Path, string Match)>();
             var S = Directory.GetFiles(Config.SFolder);
             var R = new Regex(Config.Regex);
