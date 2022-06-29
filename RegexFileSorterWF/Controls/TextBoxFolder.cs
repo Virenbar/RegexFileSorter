@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace RegexFileSorterWF.Controls
 {
@@ -19,12 +18,6 @@ namespace RegexFileSorterWF.Controls
         {
             var F = new FolderBrowserDialog { InitialDirectory = Text };
             if (F.ShowDialog() == DialogResult.OK) { Text = F.SelectedPath; }
-            //var F = new CommonOpenFileDialog
-            //{
-            //    IsFolderPicker = true,
-            //    InitialDirectory = Text
-            //};
-            //if (F.ShowDialog() == CommonFileDialogResult.Ok) { Text = F.FileName; }
         }
 
         protected override void OnDragDrop(DragEventArgs e)

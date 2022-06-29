@@ -1,13 +1,12 @@
+using RegexFileSorter;
 using RegexFileSorterWF.Controls;
 using System.Diagnostics;
-using System.Reflection;
-using RegexFileSorter;
 
 namespace RegexFileSorterWF
 {
     public partial class FormMain : Form
     {
-        private FileSorter Sorter = new();
+        private FileSorter? Sorter;
 
         public FormMain()
         {
@@ -15,43 +14,14 @@ namespace RegexFileSorterWF
             Icon = Properties.Resources.RFS_Icon;
         }
 
-        private void RefreshUI()
-        {
-            BS_Config.DataSource = ProfileManager.Current;
-            MI_Load.DropDownItems.Clear();
-            MI_Delete.DropDownItems.Clear();
-            foreach (var profile in ProfileManager.Profiles)
-            {
-                var Load = new ToolStripMenuItem(profile.Key);
-                Load.Click += (object? sender, EventArgs e) =>
-                {
-                    ProfileManager.SetCurrent(profile.Key);
-                    RefreshUI();
-                };
-                MI_Load.DropDownItems.Add(Load);
-
-                var Delete = new ToolStripMenuItem(profile.Key);
-                Delete.Click += (object? sender, EventArgs e) =>
-                {
-                    if (this.AskYesNo($"Delete profile \"{profile.Key}\"?", "Delete profile") == DialogResult.No) { return; }
-                    ProfileManager.Remove(profile.Key);
-                    RefreshUI();
-                }; ;
-                MI_Delete.DropDownItems.Add(Delete);
-            }
-        }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
+            RefreshMenu();
             RefreshUI();
 
             LV_Sorted.View = View.Details;
-            //EnableDoubleBuferring(this);
-            EnableDoubleBuferring(tableLayoutPanel1);
-            EnableDoubleBuferring(LV_Sorted);
-            //LV_Sorted.DoubleBuffered = true;
-            //LV_Sorted.LabelWrap = false;
-            LV_Sorted.BeginUpdate();
+            tableLayoutPanel1.DoubleBuferred();
+            LV_Sorted.DoubleBuferred();
             LV_Sorted.Columns.Add("Name");
             LV_Sorted.HeaderStyle = ColumnHeaderStyle.None;
             var GroupNames = Enumerable
@@ -68,6 +38,7 @@ namespace RegexFileSorterWF
                     TaskLink = $"Task {group}"
                 });
 
+            LV_Sorted.BeginUpdate();
             foreach (var group in Groups)
             {
                 LV_Sorted.Groups.Add(group);
@@ -87,28 +58,104 @@ namespace RegexFileSorterWF
                     });
                 LV_Sorted.Items.AddRange(Items.ToArray());
                 LV_Sorted.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-                LV_Sorted.EndUpdate();
+            }
+            LV_Sorted.EndUpdate();
+        }
+
+        private void RefreshMenu()
+        {
+            MI_Load.DropDownItems.Clear();
+            MI_Delete.DropDownItems.Clear();
+            foreach (var profile in ProfileManager.Profiles)
+            {
+                var Load = new ToolStripMenuItem(profile.Key);
+                Load.Click += (object? _, EventArgs e) =>
+                {
+                    ProfileManager.SetCurrent(profile.Key);
+                    RefreshMenu();
+                    RefreshUI();
+                };
+                MI_Load.DropDownItems.Add(Load);
+
+                var Delete = new ToolStripMenuItem(profile.Key);
+                Delete.Click += (object? _, EventArgs e) =>
+                {
+                    if (this.AskYesNo($"Delete profile \"{profile.Key}\"?", "Delete profile") == DialogResult.No) { return; }
+                    ProfileManager.Remove(profile.Key);
+                    RefreshMenu();
+                };
+                MI_Delete.DropDownItems.Add(Delete);
             }
         }
 
-        public static void EnableDoubleBuferring(Control control)
+        private void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
         {
-            var property = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
-            property?.SetValue(control, true, null);
+            var Groups = groups
+                .Select(group => new ListViewGroup($"{group.Name} - {group.Files.Count}")
+                {
+                    TaskLink = group.Status,
+                    CollapsedState = ListViewGroupCollapsedState.Collapsed,
+                    Tag = group
+                });
+            foreach (var group in groups)
+            {
+            }
+
+            list.BeginUpdate();
+            foreach (var group in Groups)
+            {
+                list.Groups.Add(group);
+                var ItemNames = Enumerable
+                    .Range(1, 10)
+                    .Select(I => $"Item {I} ({group})")
+                    .ToList();
+
+                var Items = group.
+                    .Select(item =>
+                    {
+                        var LVI = new ListViewItem(item)
+                        {
+                            Group = group
+                        };
+                        return LVI;
+                    });
+                list.Items.AddRange(Items.ToArray());
+                list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            }
+            list.EndUpdate();
+        }
+
+        private void RefreshUI()
+        {
+            BS_Config.DataSource = ProfileManager.Current;
         }
 
         #region UI Events
 
-        private void B_Open_Click(object sender, EventArgs e)
-        {
-        }
-
         private void B_Copy_Click(object sender, EventArgs e)
         {
+            //TODO
         }
 
         private void B_Move_Click(object sender, EventArgs e)
         {
+            Sorter?.MoveValidFiles();
+        }
+
+        private void B_Open_Click(object sender, EventArgs e)
+        {
+            //TODO
+        }
+
+        private void B_SelectD_Click(object sender, EventArgs e) => TB_Destination.SelectFolder();
+
+        private void B_SelectS_Click(object sender, EventArgs e) => TB_Source.SelectFolder();
+
+        private void B_Sort_Click(object sender, EventArgs e)
+        {
+            Sorter = new(ProfileManager.Current);
+            Sorter.SortFiles();
+            B_Move.Enabled = Sorter.ValidFolders.Count > 0;
         }
 
         private void LV_Sorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
@@ -120,18 +167,12 @@ namespace RegexFileSorterWF
 
         private void LV_Unsorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
         {
+            //TODO
         }
 
         private void LV_Unsorted_ItemActivate(object sender, EventArgs e)
         {
-        }
-
-        private void B_SelectS_Click(object sender, EventArgs e) => TB_Source.SelectFolder();
-
-        private void B_SelectD_Click(object sender, EventArgs e) => TB_Destination.SelectFolder();
-
-        private void B_Sort_Click(object sender, EventArgs e)
-        {
+            //TODO
         }
 
         private void MI_Save_Click(object sender, EventArgs e)
@@ -140,7 +181,7 @@ namespace RegexFileSorterWF
             var Done = false;
             while (!Done)
             {
-                var F = new InputBox() { Header = "Input name for profile", Value = Name };
+                var F = new InputBox { Header = "Input name for profile", Value = Name };
                 if (F.ShowDialog(this) == DialogResult.Cancel) { return; }
                 Name = F.Value;
                 if (!ProfileManager.Contains(Name)) { break; }
@@ -157,11 +198,16 @@ namespace RegexFileSorterWF
                         return;
 
                     default:
-                        break;
+                        return;
                 }
             }
             ProfileManager.Add(Name);
             RefreshUI();
+        }
+
+        private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
+        {
+            //TODO
         }
 
         #endregion UI Events

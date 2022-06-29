@@ -17,6 +17,7 @@ namespace RegexFileSorter
                 foreach (var F in SF.Files)
                 {
                     if (File.Exists(F.OutPath)) { File.Delete(F.OutPath); }
+                    if (!Directory.Exists(F.OutPath)) { Directory.CreateDirectory(F.OutPath); };
                     File.Move(F.InPath, F.OutPath);
                 }
             }

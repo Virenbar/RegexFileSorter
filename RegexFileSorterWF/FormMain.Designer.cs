@@ -233,6 +233,7 @@
             // BS_Config
             // 
             this.BS_Config.DataSource = typeof(RegexFileSorter.Profile);
+            this.BS_Config.CurrentItemChanged += new System.EventHandler(this.BS_Config_CurrentItemChanged);
             // 
             // panel1
             // 
@@ -429,20 +430,20 @@
             // MI_Save
             // 
             this.MI_Save.Name = "MI_Save";
-            this.MI_Save.Size = new System.Drawing.Size(180, 22);
+            this.MI_Save.Size = new System.Drawing.Size(107, 22);
             this.MI_Save.Text = "Save";
             this.MI_Save.Click += new System.EventHandler(this.MI_Save_Click);
             // 
             // MI_Load
             // 
             this.MI_Load.Name = "MI_Load";
-            this.MI_Load.Size = new System.Drawing.Size(180, 22);
+            this.MI_Load.Size = new System.Drawing.Size(107, 22);
             this.MI_Load.Text = "Load";
             // 
             // MI_Delete
             // 
             this.MI_Delete.Name = "MI_Delete";
-            this.MI_Delete.Size = new System.Drawing.Size(180, 22);
+            this.MI_Delete.Size = new System.Drawing.Size(107, 22);
             this.MI_Delete.Text = "Delete";
             // 
             // FormMain
