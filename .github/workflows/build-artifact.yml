@@ -19,12 +19,15 @@ jobs:
     name: Build
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        #configuration: [Debug, Release]
+        configuration: [Release]
+        profile: [win, win-self]
     runs-on: windows-latest
     env:
       DOTNET_NOLOGO: true
       SolutionName: RegexFileSorter.sln
       Configuration: ${{ matrix.configuration }}
+      Profile: ${{ matrix.profile }}
     outputs:
       version: ${{steps.version.outputs.version}}
     steps:
@@ -37,10 +40,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
-
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
       
     - name: Set VERSION
       id: version
@@ -56,15 +55,13 @@ jobs:
       run: dotnet build -c $env:Configuration
         
     - name: Build artifact
-      if: matrix.configuration == 'Release'
-      run: |
-        dotnet publish -c Release -p:PublishProfile=win-x64 /property:Version=$env:VERSION
+      #if: matrix.configuration == 'Release'
+      run: dotnet publish -c Release -p:PublishProfile=$env:Profile /property:Version=$env:VERSION
 
-    - name: Upload a Build Artifact(win)
-      if: matrix.configuration == 'Release'
+    - name: Upload a Build Artifact
+      #if: matrix.configuration == 'Release'
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: RegexFileSorter(win)
-        path: |
-            ModpacksCH\bin\Release\net6.0-windows\publish\win-x64\RegexFileSorterWF.exe
+        name: RegexFileSorter(${{ matrix.profile }})
+        path: RegexFileSorterWF\bin\Release\net6.0-windows\publish\${{ matrix.profile }}\RegexFileSorterWF.exe
         if-no-files-found: error

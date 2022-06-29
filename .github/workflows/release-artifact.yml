@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build
-    uses: Virenbar/ModpacksCH/.github/workflows/build-artifact.yml@master
+    uses: Virenbar/RegexFileSorter/.github/workflows/build-artifact.yml@master
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -21,7 +21,8 @@ jobs:
 
       - name: Archive artifacts
         run: |
-          zip -r "RegexFileSorter(Windows).zip" "RegexFileSorter(win)"
+          zip -r "RegexFileSorter.zip" "RegexFileSorter(win)"
+          zip -r "RegexFileSorter(dotnet).zip" "RegexFileSorter(win-self)"
 
       # - name: LS
       #   run: ls -R
@@ -30,4 +31,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            RegexFileSorter(Windows).zip
+            RegexFileSorter.zip
+            RegexFileSorter(dotnet).zip
