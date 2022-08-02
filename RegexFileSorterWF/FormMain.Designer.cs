@@ -32,7 +32,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.B_Sort = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
+            this.L_Count = new System.Windows.Forms.Label();
             this.B_Move = new System.Windows.Forms.Button();
             this.LV_Unsorted = new System.Windows.Forms.ListView();
             this.LV_Sorted = new System.Windows.Forms.ListView();
@@ -82,13 +82,13 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 232);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 172);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(902, 266);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 326);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -97,9 +97,9 @@
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.B_Sort);
-            this.flowLayoutPanel1.Controls.Add(this.label6);
+            this.flowLayoutPanel1.Controls.Add(this.L_Count);
             this.flowLayoutPanel1.Controls.Add(this.B_Move);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(659, 230);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(726, 290);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(240, 33);
             this.flowLayoutPanel1.TabIndex = 1;
@@ -119,16 +119,16 @@
             this.B_Sort.UseVisualStyleBackColor = true;
             this.B_Sort.Click += new System.EventHandler(this.B_Sort_Click);
             // 
-            // label6
+            // L_Count
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(89, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 17);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Files: 0";
+            this.L_Count.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.L_Count.AutoSize = true;
+            this.L_Count.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.L_Count.Location = new System.Drawing.Point(89, 8);
+            this.L_Count.Name = "L_Count";
+            this.L_Count.Size = new System.Drawing.Size(51, 17);
+            this.L_Count.TabIndex = 3;
+            this.L_Count.Text = "Files: 0";
             // 
             // B_Move
             // 
@@ -151,7 +151,7 @@
             this.LV_Unsorted.GridLines = true;
             this.LV_Unsorted.Location = new System.Drawing.Point(3, 20);
             this.LV_Unsorted.Name = "LV_Unsorted";
-            this.LV_Unsorted.Size = new System.Drawing.Size(445, 204);
+            this.LV_Unsorted.Size = new System.Drawing.Size(478, 264);
             this.LV_Unsorted.TabIndex = 2;
             this.LV_Unsorted.UseCompatibleStateImageBehavior = false;
             this.LV_Unsorted.View = System.Windows.Forms.View.Details;
@@ -162,10 +162,10 @@
             // 
             this.LV_Sorted.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LV_Sorted.GridLines = true;
-            this.LV_Sorted.Location = new System.Drawing.Point(454, 20);
+            this.LV_Sorted.Location = new System.Drawing.Point(487, 20);
             this.LV_Sorted.MultiSelect = false;
             this.LV_Sorted.Name = "LV_Sorted";
-            this.LV_Sorted.Size = new System.Drawing.Size(445, 204);
+            this.LV_Sorted.Size = new System.Drawing.Size(479, 264);
             this.LV_Sorted.TabIndex = 2;
             this.LV_Sorted.UseCompatibleStateImageBehavior = false;
             this.LV_Sorted.View = System.Windows.Forms.View.Details;
@@ -177,7 +177,7 @@
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel2.Controls.Add(this.B_Open);
             this.flowLayoutPanel2.Controls.Add(this.B_Copy);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 230);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 290);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(164, 33);
             this.flowLayoutPanel2.TabIndex = 1;
@@ -213,7 +213,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(178, 0);
+            this.label3.Location = new System.Drawing.Point(195, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 17);
             this.label3.TabIndex = 3;
@@ -224,7 +224,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(637, 0);
+            this.label4.Location = new System.Drawing.Point(687, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 17);
             this.label4.TabIndex = 3;
@@ -240,7 +240,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 151);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(902, 81);
+            this.panel1.Size = new System.Drawing.Size(969, 21);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -268,7 +268,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(902, 126);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(969, 126);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // flowLayoutPanel3
@@ -322,7 +322,7 @@
             this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "Regex", true));
             this.textBox1.Location = new System.Drawing.Point(86, 69);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(707, 23);
+            this.textBox1.Size = new System.Drawing.Size(774, 23);
             this.textBox1.TabIndex = 5;
             // 
             // TB_Source
@@ -332,7 +332,7 @@
             this.TB_Source.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "SFolder", true));
             this.TB_Source.Location = new System.Drawing.Point(86, 5);
             this.TB_Source.Name = "TB_Source";
-            this.TB_Source.Size = new System.Drawing.Size(707, 23);
+            this.TB_Source.Size = new System.Drawing.Size(774, 23);
             this.TB_Source.TabIndex = 1;
             // 
             // TB_Destination
@@ -342,7 +342,7 @@
             this.TB_Destination.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "DFolder", true));
             this.TB_Destination.Location = new System.Drawing.Point(86, 38);
             this.TB_Destination.Name = "TB_Destination";
-            this.TB_Destination.Size = new System.Drawing.Size(707, 23);
+            this.TB_Destination.Size = new System.Drawing.Size(774, 23);
             this.TB_Destination.TabIndex = 1;
             // 
             // B_SelectS
@@ -350,7 +350,7 @@
             this.B_SelectS.AutoSize = true;
             this.B_SelectS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.B_SelectS.Image = global::RegexFileSorterWF.Icons8.OpenedFolder16;
-            this.B_SelectS.Location = new System.Drawing.Point(799, 3);
+            this.B_SelectS.Location = new System.Drawing.Point(866, 3);
             this.B_SelectS.Name = "B_SelectS";
             this.B_SelectS.Padding = new System.Windows.Forms.Padding(1);
             this.B_SelectS.Size = new System.Drawing.Size(100, 27);
@@ -385,7 +385,7 @@
             this.B_SelectD.AutoSize = true;
             this.B_SelectD.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.B_SelectD.Image = global::RegexFileSorterWF.Icons8.OpenedFolder16;
-            this.B_SelectD.Location = new System.Drawing.Point(799, 36);
+            this.B_SelectD.Location = new System.Drawing.Point(866, 36);
             this.B_SelectD.Name = "B_SelectD";
             this.B_SelectD.Padding = new System.Windows.Forms.Padding(1);
             this.B_SelectD.Size = new System.Drawing.Size(100, 27);
@@ -399,9 +399,9 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(42, 73);
+            this.label5.Location = new System.Drawing.Point(41, 73);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 15);
+            this.label5.Size = new System.Drawing.Size(39, 15);
             this.label5.TabIndex = 3;
             this.label5.Text = "RegEx";
             // 
@@ -412,7 +412,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(902, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(969, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -451,7 +451,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(902, 498);
+            this.ClientSize = new System.Drawing.Size(969, 498);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
@@ -507,7 +507,7 @@
         private TextBox textBox1;
         private Label label5;
         private Button B_Sort;
-        private Label label6;
+        private Label L_Count;
         private CheckBox checkBox2;
         private CheckBox checkBox3;
         private CheckBox checkBox1;

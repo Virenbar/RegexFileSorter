@@ -11,18 +11,19 @@ namespace RegexFileSorter
         public FileSorter(Profile profile) => _profile = profile;
 
         public IReadOnlyList<GroupedFiles> Groups => _groups;
-        public IReadOnlyList<GroupedFiles> SortedFolders => Groups.Where(F => F.IsSorted).ToList();
-        public IReadOnlyList<GroupedFiles> UnsortedFolders => Groups.Where(F => !F.IsSorted).ToList();
+        public IReadOnlyList<GroupedFiles> SortedGroups => Groups.Where(F => F.IsSorted).ToList();
+        public IReadOnlyList<GroupedFiles> UnsortedGroups => Groups.Where(F => !F.IsSorted).ToList();
+        public int SortedFiles => SortedGroups.Sum(F => F.Files.Count);
 
         public void MoveValidFiles()
         {
-            foreach (var SF in SortedFolders)
+            foreach (var SF in SortedGroups)
             {
                 if (!SF.IsSorted) { continue; }
                 foreach (var F in SF.Files)
                 {
                     if (File.Exists(F.OutPath)) { File.Delete(F.OutPath); }
-                    if (!Directory.Exists(F.OutPath)) { Directory.CreateDirectory(F.OutPath); };
+                    if (!Directory.Exists(F.OutPath)) { Directory.CreateDirectory(F.OutPath); }
                     File.Move(F.InPath, F.OutPath);
                 }
             }
@@ -63,7 +64,7 @@ namespace RegexFileSorter
             foreach (var Folder in Directory.GetDirectories(_profile.OutFolder))
             {
                 var FolderName = Path.GetFileName(Folder);
-                OutDirectories.Add(FolderName.ToLowerInvariant(), Folder);
+                OutDirectories.Add(FolderName, Folder);
             }
         }
 

@@ -17,6 +17,8 @@ namespace RegexFileSorterWF
         private static void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
         {
             var Groups = groups
+                .OrderBy(g => g.Name)
+                .OrderByDescending(g => g.Files.Count)
                 .Select(group => new ListViewGroup($"{group.Name} - {group.Files.Count}")
                 {
                     TaskLink = group.Status,
@@ -25,6 +27,8 @@ namespace RegexFileSorterWF
                 });
 
             list.BeginUpdate();
+            list.Clear();
+            list.Columns.Add("Name");
             foreach (var group in Groups)
             {
                 var Items = ((GroupedFiles)group.Tag!).Files.Select(file =>
@@ -32,6 +36,7 @@ namespace RegexFileSorterWF
                         var LVI = new ListViewItem(file.FileName) { Group = group };
                         return LVI;
                     });
+                list.Groups.Add(group);
                 list.Items.AddRange(Items.ToArray());
                 list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
@@ -43,11 +48,15 @@ namespace RegexFileSorterWF
             RefreshMenu();
             RefreshUI();
 
-            LV_Sorted.View = View.Details;
             tableLayoutPanel1.DoubleBuferred();
+
             LV_Sorted.DoubleBuferred();
-            LV_Sorted.Columns.Add("Name");
+            LV_Sorted.View = View.Details;
             LV_Sorted.HeaderStyle = ColumnHeaderStyle.None;
+
+            LV_Unsorted.DoubleBuferred();
+            LV_Unsorted.View = View.Details;
+            LV_Unsorted.HeaderStyle = ColumnHeaderStyle.None;
         }
 
         private void RefreshMenu()
@@ -106,9 +115,10 @@ namespace RegexFileSorterWF
         {
             Sorter = new(ProfileManager.Current);
             Sorter.SortFiles();
-            RefreshList(Sorter.SortedFolders, LV_Sorted);
-            RefreshList(Sorter.UnsortedFolders, LV_Unsorted);
-            B_Move.Enabled = Sorter.SortedFolders.Count > 0;
+            RefreshList(Sorter.SortedGroups, LV_Sorted);
+            RefreshList(Sorter.UnsortedGroups, LV_Unsorted);
+            L_Count.Text = $"Files: {Sorter.SortedFiles}";
+            B_Move.Enabled = Sorter.SortedGroups.Count > 0;
         }
 
         private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
