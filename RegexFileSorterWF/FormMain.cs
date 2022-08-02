@@ -14,6 +14,30 @@ namespace RegexFileSorterWF
             Icon = Properties.Resources.RFS_Icon;
         }
 
+        private static void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
+        {
+            var Groups = groups
+                .Select(group => new ListViewGroup($"{group.Name} - {group.Files.Count}")
+                {
+                    TaskLink = group.Status,
+                    CollapsedState = ListViewGroupCollapsedState.Collapsed,
+                    Tag = group
+                });
+
+            list.BeginUpdate();
+            foreach (var group in Groups)
+            {
+                var Items = ((GroupedFiles)group.Tag!).Files.Select(file =>
+                    {
+                        var LVI = new ListViewItem(file.FileName) { Group = group };
+                        return LVI;
+                    });
+                list.Items.AddRange(Items.ToArray());
+                list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            }
+            list.EndUpdate();
+        }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             RefreshMenu();
@@ -24,42 +48,6 @@ namespace RegexFileSorterWF
             LV_Sorted.DoubleBuferred();
             LV_Sorted.Columns.Add("Name");
             LV_Sorted.HeaderStyle = ColumnHeaderStyle.None;
-            var GroupNames = Enumerable
-                .Range(1, 100)
-                .Select(I => $"Group {I}")
-                .ToList();
-
-            var Groups = GroupNames
-                .Select(group => new ListViewGroup(group)
-                {
-                    Subtitle = $"Subtitle {group}",
-                    CollapsedState = ListViewGroupCollapsedState.Collapsed,
-                    Footer = $"Footer {group}",
-                    TaskLink = $"Task {group}"
-                });
-
-            LV_Sorted.BeginUpdate();
-            foreach (var group in Groups)
-            {
-                LV_Sorted.Groups.Add(group);
-                var ItemNames = Enumerable
-                    .Range(1, 10)
-                    .Select(I => $"Item {I} ({group})")
-                    .ToList();
-
-                var Items = ItemNames
-                    .Select(item =>
-                    {
-                        var LVI = new ListViewItem(item)
-                        {
-                            Group = group
-                        };
-                        return LVI;
-                    });
-                LV_Sorted.Items.AddRange(Items.ToArray());
-                LV_Sorted.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            }
-            LV_Sorted.EndUpdate();
         }
 
         private void RefreshMenu()
@@ -86,43 +74,6 @@ namespace RegexFileSorterWF
                 };
                 MI_Delete.DropDownItems.Add(Delete);
             }
-        }
-
-        private void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
-        {
-            var Groups = groups
-                .Select(group => new ListViewGroup($"{group.Name} - {group.Files.Count}")
-                {
-                    TaskLink = group.Status,
-                    CollapsedState = ListViewGroupCollapsedState.Collapsed,
-                    Tag = group
-                });
-            foreach (var group in groups)
-            {
-            }
-
-            list.BeginUpdate();
-            foreach (var group in Groups)
-            {
-                list.Groups.Add(group);
-                var ItemNames = Enumerable
-                    .Range(1, 10)
-                    .Select(I => $"Item {I} ({group})")
-                    .ToList();
-
-                var Items = group.
-                    .Select(item =>
-                    {
-                        var LVI = new ListViewItem(item)
-                        {
-                            Group = group
-                        };
-                        return LVI;
-                    });
-                list.Items.AddRange(Items.ToArray());
-                list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            }
-            list.EndUpdate();
         }
 
         private void RefreshUI()
@@ -155,13 +106,20 @@ namespace RegexFileSorterWF
         {
             Sorter = new(ProfileManager.Current);
             Sorter.SortFiles();
-            B_Move.Enabled = Sorter.ValidFolders.Count > 0;
+            RefreshList(Sorter.SortedFolders, LV_Sorted);
+            RefreshList(Sorter.UnsortedFolders, LV_Unsorted);
+            B_Move.Enabled = Sorter.SortedFolders.Count > 0;
+        }
+
+        private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
+        {
+            //TODO
         }
 
         private void LV_Sorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
         {
-            var S = (GroupedFiles?)LV_Sorted.Groups[e.GroupIndex].Tag;
-            if (S is null) { return; }
+            var S = (GroupedFiles)LV_Sorted.Groups[e.GroupIndex].Tag!;
+            //if (S is null) { return; }
             Process.Start(new ProcessStartInfo(S.Path) { UseShellExecute = true });
         }
 
@@ -203,11 +161,6 @@ namespace RegexFileSorterWF
             }
             ProfileManager.Add(Name);
             RefreshUI();
-        }
-
-        private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
-        {
-            //TODO
         }
 
         #endregion UI Events

@@ -13,7 +13,7 @@ namespace RegexFileSorter
         {
             foreach (var SF in folders)
             {
-                if (!SF.IsValid) { continue; }
+                if (!SF.IsSorted) { continue; }
                 foreach (var F in SF.Files)
                 {
                     if (File.Exists(F.OutPath)) { File.Delete(F.OutPath); }

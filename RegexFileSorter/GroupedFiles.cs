@@ -8,7 +8,7 @@
         }
 
         public List<File> Files { get; } = new();
-        public bool IsValid { get; set; }
+        public bool IsSorted { get; set; }
         public string Name { get; set; } = "No Name";
         public string Path { get; set; } = "";
         public string Status { get; set; } = "None";
