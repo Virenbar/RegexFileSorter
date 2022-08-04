@@ -12,6 +12,6 @@
         public string Name { get; set; } = "No Name";
         public string Path { get; set; } = "";
         public string Status { get; set; } = "None";
-        public record File(string FileName, string InPath, string OutPath);
+        public record File(string FileName, string InPath);
     }
 }

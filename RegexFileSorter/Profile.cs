@@ -6,8 +6,8 @@ namespace RegexFileSorter
     public class Profile : INotifyPropertyChanged
 
     {
-        private string m_DFolder;
-        private string m_SFolder;
+        private string m_DFolder = "";
+        private string m_SFolder = "";
 
         public Profile()
         {

@@ -12,6 +12,7 @@ namespace RegexFileSorterWF
         {
             InitializeComponent();
             Icon = Properties.Resources.RFS_Icon;
+            DoubleBuffered = true;
         }
 
         private static void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
@@ -27,8 +28,7 @@ namespace RegexFileSorterWF
                 });
 
             list.BeginUpdate();
-            list.Clear();
-            list.Columns.Add("Name");
+            list.Items.Clear();
             foreach (var group in Groups)
             {
                 var Items = ((GroupedFiles)group.Tag!).Files.Select(file =>
@@ -38,7 +38,6 @@ namespace RegexFileSorterWF
                     });
                 list.Groups.Add(group);
                 list.Items.AddRange(Items.ToArray());
-                list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
             list.EndUpdate();
         }
@@ -47,8 +46,6 @@ namespace RegexFileSorterWF
         {
             RefreshMenu();
             RefreshUI();
-
-            tableLayoutPanel1.DoubleBuferred();
 
             LV_Sorted.DoubleBuferred();
             LV_Sorted.View = View.Details;
@@ -90,28 +87,7 @@ namespace RegexFileSorterWF
             BS_Config.DataSource = ProfileManager.Current;
         }
 
-        #region UI Events
-
-        private void B_Copy_Click(object sender, EventArgs e)
-        {
-            //TODO
-        }
-
-        private void B_Move_Click(object sender, EventArgs e)
-        {
-            Sorter?.MoveValidFiles();
-        }
-
-        private void B_Open_Click(object sender, EventArgs e)
-        {
-            //TODO
-        }
-
-        private void B_SelectD_Click(object sender, EventArgs e) => TB_Destination.SelectFolder();
-
-        private void B_SelectS_Click(object sender, EventArgs e) => TB_Source.SelectFolder();
-
-        private void B_Sort_Click(object sender, EventArgs e)
+        private void SortFiles()
         {
             Sorter = new(ProfileManager.Current);
             Sorter.SortFiles();
@@ -121,21 +97,47 @@ namespace RegexFileSorterWF
             B_Move.Enabled = Sorter.SortedGroups.Count > 0;
         }
 
+        #region UI Events
+
+        private void B_Move_Click(object sender, EventArgs e)
+        {
+            Sorter?.MoveValidFiles();
+            SortFiles();
+        }
+
+        private void B_SelectD_Click(object sender, EventArgs e) => TB_Destination.SelectFolder();
+
+        private void B_SelectS_Click(object sender, EventArgs e) => TB_Source.SelectFolder();
+
+        private void B_Sort_Click(object sender, EventArgs e) => SortFiles();
+
         private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
         {
             //TODO
         }
 
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            LV_Unsorted.Columns[0].Width = LV_Unsorted.Width - 25;
+            LV_Sorted.Columns[0].Width = LV_Sorted.Width - 25;
+        }
+
         private void LV_Sorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
         {
             var S = (GroupedFiles)LV_Sorted.Groups[e.GroupIndex].Tag!;
-            //if (S is null) { return; }
+            if (!Directory.Exists(S.Path))
+            {
+                if (MessageBox.Show(this, $"Create folder \"{Path.GetFileName(S.Path)}\"?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                { Directory.CreateDirectory(S.Path); }
+                else { return; }
+            }
             Process.Start(new ProcessStartInfo(S.Path) { UseShellExecute = true });
         }
 
         private void LV_Unsorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
         {
-            //TODO
+            var S = (GroupedFiles)LV_Unsorted.Groups[e.GroupIndex].Tag!;
+            Clipboard.SetText(S.Name);
         }
 
         private void LV_Unsorted_ItemActivate(object sender, EventArgs e)
@@ -171,6 +173,7 @@ namespace RegexFileSorterWF
             }
             ProfileManager.Add(Name);
             RefreshUI();
+            RefreshMenu();
         }
 
         #endregion UI Events

@@ -35,14 +35,12 @@
             this.L_Count = new System.Windows.Forms.Label();
             this.B_Move = new System.Windows.Forms.Button();
             this.LV_Unsorted = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.LV_Sorted = new System.Windows.Forms.ListView();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.B_Open = new System.Windows.Forms.Button();
-            this.B_Copy = new System.Windows.Forms.Button();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.BS_Config = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -63,7 +61,6 @@
             this.MI_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BS_Config)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -78,17 +75,16 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.LV_Unsorted, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.LV_Sorted, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 172);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 151);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 326);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 347);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -99,7 +95,7 @@
             this.flowLayoutPanel1.Controls.Add(this.B_Sort);
             this.flowLayoutPanel1.Controls.Add(this.L_Count);
             this.flowLayoutPanel1.Controls.Add(this.B_Move);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(726, 290);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(726, 311);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(240, 33);
             this.flowLayoutPanel1.TabIndex = 1;
@@ -147,66 +143,44 @@
             // 
             // LV_Unsorted
             // 
+            this.LV_Unsorted.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.LV_Unsorted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LV_Unsorted.FullRowSelect = true;
             this.LV_Unsorted.GridLines = true;
             this.LV_Unsorted.Location = new System.Drawing.Point(3, 20);
+            this.LV_Unsorted.MultiSelect = false;
             this.LV_Unsorted.Name = "LV_Unsorted";
-            this.LV_Unsorted.Size = new System.Drawing.Size(478, 264);
+            this.LV_Unsorted.Size = new System.Drawing.Size(478, 285);
             this.LV_Unsorted.TabIndex = 2;
             this.LV_Unsorted.UseCompatibleStateImageBehavior = false;
             this.LV_Unsorted.View = System.Windows.Forms.View.Details;
             this.LV_Unsorted.GroupTaskLinkClick += new System.EventHandler<System.Windows.Forms.ListViewGroupEventArgs>(this.LV_Unsorted_GroupTaskLinkClick);
             this.LV_Unsorted.ItemActivate += new System.EventHandler(this.LV_Unsorted_ItemActivate);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            // 
             // LV_Sorted
             // 
+            this.LV_Sorted.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
             this.LV_Sorted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LV_Sorted.FullRowSelect = true;
             this.LV_Sorted.GridLines = true;
             this.LV_Sorted.Location = new System.Drawing.Point(487, 20);
             this.LV_Sorted.MultiSelect = false;
             this.LV_Sorted.Name = "LV_Sorted";
-            this.LV_Sorted.Size = new System.Drawing.Size(479, 264);
+            this.LV_Sorted.Size = new System.Drawing.Size(479, 285);
             this.LV_Sorted.TabIndex = 2;
             this.LV_Sorted.UseCompatibleStateImageBehavior = false;
             this.LV_Sorted.View = System.Windows.Forms.View.Details;
             this.LV_Sorted.GroupTaskLinkClick += new System.EventHandler<System.Windows.Forms.ListViewGroupEventArgs>(this.LV_Sorted_GroupTaskLinkClick);
             // 
-            // flowLayoutPanel2
+            // columnHeader2
             // 
-            this.flowLayoutPanel2.AutoSize = true;
-            this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel2.Controls.Add(this.B_Open);
-            this.flowLayoutPanel2.Controls.Add(this.B_Copy);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 290);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(164, 33);
-            this.flowLayoutPanel2.TabIndex = 1;
-            // 
-            // B_Open
-            // 
-            this.B_Open.AutoSize = true;
-            this.B_Open.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_Open.Location = new System.Drawing.Point(3, 3);
-            this.B_Open.Name = "B_Open";
-            this.B_Open.Padding = new System.Windows.Forms.Padding(1);
-            this.B_Open.Size = new System.Drawing.Size(69, 27);
-            this.B_Open.TabIndex = 0;
-            this.B_Open.Text = "Open File";
-            this.B_Open.UseVisualStyleBackColor = true;
-            this.B_Open.Click += new System.EventHandler(this.B_Open_Click);
-            // 
-            // B_Copy
-            // 
-            this.B_Copy.AutoSize = true;
-            this.B_Copy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_Copy.Location = new System.Drawing.Point(78, 3);
-            this.B_Copy.Name = "B_Copy";
-            this.B_Copy.Padding = new System.Windows.Forms.Padding(1);
-            this.B_Copy.Size = new System.Drawing.Size(83, 27);
-            this.B_Copy.TabIndex = 0;
-            this.B_Copy.Text = "Copy Group";
-            this.B_Copy.UseVisualStyleBackColor = true;
-            this.B_Copy.Click += new System.EventHandler(this.B_Copy_Click);
+            this.columnHeader2.Text = "Name";
             // 
             // label3
             // 
@@ -234,14 +208,6 @@
             // 
             this.BS_Config.DataSource = typeof(RegexFileSorter.Profile);
             this.BS_Config.CurrentItemChanged += new System.EventHandler(this.BS_Config_CurrentItemChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 151);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(969, 21);
-            this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
@@ -329,7 +295,7 @@
             // 
             this.TB_Source.AllowDrop = true;
             this.TB_Source.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TB_Source.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "SFolder", true));
+            this.TB_Source.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "SFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.TB_Source.Location = new System.Drawing.Point(86, 5);
             this.TB_Source.Name = "TB_Source";
             this.TB_Source.Size = new System.Drawing.Size(774, 23);
@@ -339,7 +305,7 @@
             // 
             this.TB_Destination.AllowDrop = true;
             this.TB_Destination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TB_Destination.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "DFolder", true));
+            this.TB_Destination.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "DFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.TB_Destination.Location = new System.Drawing.Point(86, 38);
             this.TB_Destination.Name = "TB_Destination";
             this.TB_Destination.Size = new System.Drawing.Size(774, 23);
@@ -453,18 +419,17 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(969, 498);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.toolStrip1);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "FormMain";
             this.Text = "Тут могла быть ваша реклама";
             this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BS_Config)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -483,12 +448,8 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private ListView LV_Unsorted;
         private ListView LV_Sorted;
-        private FlowLayoutPanel flowLayoutPanel2;
-        private Button B_Open;
-        private Button B_Copy;
         private Button B_Move;
         private BindingSource BS_Config;
-        private Panel panel1;
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem MI_Load;
@@ -511,5 +472,7 @@
         private CheckBox checkBox2;
         private CheckBox checkBox3;
         private CheckBox checkBox1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

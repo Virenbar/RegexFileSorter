@@ -12,13 +12,15 @@ namespace RegexFileSorter
             Profiles = new() { { "Default", new() } };
         }
 
-        public static Dictionary<string, Profile> Profiles { get; set; }
         public static Profile Current { get; set; }
         public static IReadOnlyDictionary<string, Profile> p => Profiles;
+        public static Dictionary<string, Profile> Profiles { get; set; }
+
+        public static void Add(string name) => Add(name, Current);
+
+        public static void Add(string name, Profile profile) => Profiles[name] = profile.Clone();
 
         public static bool Contains(string name) => Profiles.ContainsKey(name);
-
-        public static void Remove(string name) => Profiles.Remove(name);
 
         public static void Load()
         {
@@ -32,9 +34,7 @@ namespace RegexFileSorter
             }
         }
 
-        public static void Add(string name) => Add(name, Current);
-
-        public static void Add(string name, Profile profile) => Profiles[name] = profile.Clone();
+        public static void Remove(string name) => Profiles.Remove(name);
 
         public static void Save()
         {

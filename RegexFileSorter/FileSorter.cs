@@ -11,9 +11,9 @@ namespace RegexFileSorter
         public FileSorter(Profile profile) => _profile = profile;
 
         public IReadOnlyList<GroupedFiles> Groups => _groups;
+        public int SortedFiles => SortedGroups.Sum(F => F.Files.Count);
         public IReadOnlyList<GroupedFiles> SortedGroups => Groups.Where(F => F.IsSorted).ToList();
         public IReadOnlyList<GroupedFiles> UnsortedGroups => Groups.Where(F => !F.IsSorted).ToList();
-        public int SortedFiles => SortedGroups.Sum(F => F.Files.Count);
 
         public void MoveValidFiles()
         {
@@ -22,9 +22,9 @@ namespace RegexFileSorter
                 if (!SF.IsSorted) { continue; }
                 foreach (var F in SF.Files)
                 {
-                    if (File.Exists(F.OutPath)) { File.Delete(F.OutPath); }
-                    if (!Directory.Exists(F.OutPath)) { Directory.CreateDirectory(F.OutPath); }
-                    File.Move(F.InPath, F.OutPath);
+                    var OutPath = Path.Combine(SF.Path, F.FileName);
+                    if (File.Exists(OutPath)) { File.Delete(OutPath); }
+                    File.Move(F.InPath, OutPath);
                 }
             }
         }
@@ -50,8 +50,7 @@ namespace RegexFileSorter
                 foreach (var File in Group)
                 {
                     var FileName = Path.GetFileName(File);
-                    var OutFile = Path.Combine(SF.Path, FileName);
-                    SF.Files.Add(new GroupedFiles.File(FileName, File, OutFile));
+                    SF.Files.Add(new GroupedFiles.File(FileName, File));
                 }
                 ValidateGroup(SF);
                 _groups.Add(SF);
@@ -75,7 +74,7 @@ namespace RegexFileSorter
             {
                 group.Path = OutPath;
                 group.IsSorted = true;
-                group.Status = "Found";
+                group.Status = $"Folder: \"{group.Name}\"";
             }
             else if (_profile.SearchFolder)
             {
@@ -85,7 +84,7 @@ namespace RegexFileSorter
                     {
                         group.Path = Folder;
                         group.IsSorted = true;
-                        group.Status = $"Found \"{FolderName}\"";
+                        group.Status = $"Folder: \"{FolderName}\"";
                     }
                 }
             }
@@ -94,10 +93,11 @@ namespace RegexFileSorter
             {
                 if (_profile.CreateNew)
                 {
+                    group.Path = OutPath;
                     group.IsSorted = true;
-                    group.Status = $"Create folder \"{group.Name}\"";
+                    group.Status = $"New folder: \"{group.Name}\"";
                 }
-                else { group.Status = "Not Found"; }
+                else { group.Status = $"Copy \"{group.Name}\""; }
             }
         }
     }
