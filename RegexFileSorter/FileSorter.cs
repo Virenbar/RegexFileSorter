@@ -1,75 +1,104 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace RegexFileSorter
 {
-    internal class FileSorter
+    public class FileSorter
     {
-        private readonly Config Config;
+        private readonly List<GroupedFiles> _groups = new();
+        private readonly Profile _profile = ProfileManager.Current;
+        private readonly Dictionary<string, string> OutDirectories = new();
 
-        public FileSorter(Config config) => Config = config;
+        public FileSorter(Profile profile) => _profile = profile;
 
-        public IReadOnlyList<SortedFolder> Folders { get; private set; }
-        public IReadOnlyList<SortedFolder> InvalidFolders => Folders.Where(F => !F.IsValid).ToList();
-        public IReadOnlyList<SortedFolder> ValidFolders => Folders.Where(F => F.IsValid).ToList();
+        public IReadOnlyList<GroupedFiles> Groups => _groups;
+        public int SortedFiles => SortedGroups.Sum(F => F.Files.Count);
+        public IReadOnlyList<GroupedFiles> SortedGroups => Groups.Where(F => F.IsSorted).ToList();
+        public IReadOnlyList<GroupedFiles> UnsortedGroups => Groups.Where(F => !F.IsSorted).ToList();
 
-        public SortedFolder PrepareFiles(IGrouping<string, string> group)
+        public void MoveValidFiles()
         {
-            var SF = new SortedFolder(group.Key);
-            SF.Path = Path.Combine(Config.OutFolder, SF.Name);
-            if (Directory.Exists(SF.Path))
+            foreach (var SF in SortedGroups)
             {
-                SF.IsValid = true;
-                SF.Status = "Found";
-            }
-            else if (Config.SearchFolder)
-            {
-                foreach (var Folder in Directory.GetDirectories(Config.OutFolder))
+                if (!SF.IsSorted) { continue; }
+                foreach (var F in SF.Files)
                 {
-                    var FolderName = Path.GetFileName(Folder);
-                    if (FolderName.ToLowerInvariant().Contains(SF.Name.ToLowerInvariant()))
-                    {
-                        SF.Path = Folder;
-                        SF.IsValid = true;
-                        SF.Status = $"Found \"{FolderName}\"";
-                    }
+                    var OutPath = Path.Combine(SF.Path, F.FileName);
+                    if (File.Exists(OutPath)) { File.Delete(OutPath); }
+                    File.Move(F.InPath, OutPath);
                 }
             }
-
-            if (!SF.IsValid)
-            {
-                if (Config.CreateNew)
-                {
-                    SF.IsValid = true;
-                    SF.Status = $"Create folder \"{SF.Name}\"";
-                }
-                else { SF.Status = "Not Found"; }
-            }
-
-            foreach (var File in group)
-            {
-                var FileName = Path.GetFileName(File);
-                var OutFile = Path.Combine(SF.Path, FileName);
-                SF.Files.Add(new SortedFolder.SortedFile(FileName, File, OutFile));
-            }
-
-            return SF;
         }
 
         public void SortFiles()
         {
-            var Result = new List<(string Path, string Match)>();
-            var S = Directory.GetFiles(Config.SFolder);
-            var R = new Regex(Config.Regex);
+            RefreshOutDirectories();
+            _groups.Clear();
+
+            var Matches = new List<(string Path, string Match)>();
+            var S = Directory.GetFiles(_profile.SFolder);
+            var R = new Regex(_profile.Regex);
             foreach (var File in S)
             {
                 var M = R.Match(Path.GetFileName(File));
-                if (M.Success) { Result.Add((File, M.Groups["S"].Value)); }
+                if (M.Success) { Matches.Add((File, M.Groups["S"].Value)); }
             }
-            var RRR = Result.ToLookup(X => X.Match, X => X.Path);
-            Folders = RRR.Select(G => PrepareFiles(G)).ToList();
+
+            var Lookup = Matches.ToLookup(X => X.Match, X => X.Path);
+            foreach (var Group in Lookup)
+            {
+                var SF = new GroupedFiles(Group.Key);
+                foreach (var File in Group)
+                {
+                    var FileName = Path.GetFileName(File);
+                    SF.Files.Add(new GroupedFiles.File(FileName, File));
+                }
+                ValidateGroup(SF);
+                _groups.Add(SF);
+            }
+        }
+
+        private void RefreshOutDirectories()
+        {
+            OutDirectories.Clear();
+            foreach (var Folder in Directory.GetDirectories(_profile.OutFolder))
+            {
+                var FolderName = Path.GetFileName(Folder);
+                OutDirectories.Add(FolderName, Folder);
+            }
+        }
+
+        private void ValidateGroup(GroupedFiles group)
+        {
+            var OutPath = Path.Combine(_profile.OutFolder, group.Name);
+            if (Directory.Exists(OutPath))
+            {
+                group.Path = OutPath;
+                group.IsSorted = true;
+                group.Status = $"Folder: \"{group.Name}\"";
+            }
+            else if (_profile.SearchFolder)
+            {
+                foreach (var (FolderName, Folder) in OutDirectories)
+                {
+                    if (FolderName.ToLowerInvariant().Contains(group.Name.ToLowerInvariant()))
+                    {
+                        group.Path = Folder;
+                        group.IsSorted = true;
+                        group.Status = $"Folder: \"{FolderName}\"";
+                    }
+                }
+            }
+
+            if (!group.IsSorted)
+            {
+                if (_profile.CreateNew)
+                {
+                    group.Path = OutPath;
+                    group.IsSorted = true;
+                    group.Status = $"New folder: \"{group.Name}\"";
+                }
+                else { group.Status = $"Copy \"{group.Name}\""; }
+            }
         }
     }
 }

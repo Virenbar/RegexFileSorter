@@ -3,6 +3,9 @@ name: Build Artifact
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
   pull_request:
     branches: [ master ]
   workflow_call:
@@ -10,17 +13,21 @@ on:
       version: 
         description: "Version builded"
         value: ${{ jobs.build.outputs.version }}
+
 jobs:
   build:
     name: Build
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        #configuration: [Debug, Release]
+        configuration: [Release]
+        profile: [win, win-self]
     runs-on: windows-latest
     env:
       DOTNET_NOLOGO: true
       SolutionName: RegexFileSorter.sln
       Configuration: ${{ matrix.configuration }}
+      Profile: ${{ matrix.profile }}
     outputs:
       version: ${{steps.version.outputs.version}}
     steps:
@@ -32,10 +39,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+        dotnet-version: 6.0.x
       
     - name: Set VERSION
       id: version
@@ -46,20 +50,18 @@ jobs:
         echo "VERSION=$version"
         echo "VERSION=$version" >> $env:GITHUB_ENV
         echo "::set-output name=version::$version"
-    - name: Restore solution
-      run: msbuild $env:SolutionName /t:Restore /p:Configuration=$env:Configuration
+
+    - name: Build solution
+      run: dotnet build -c $env:Configuration
         
-    - name: Build solutin
-      run: msbuild $env:SolutionName /t:Build /p:Configuration=$env:Configuration
+    - name: Build artifact
+      #if: matrix.configuration == 'Release'
+      run: dotnet publish -c Release -p:PublishProfile=$env:Profile /property:Version=$env:VERSION
 
     - name: Upload a Build Artifact
-      if: matrix.configuration == 'Release'
+      #if: matrix.configuration == 'Release'
       uses: actions/upload-artifact@v2.3.1
       with:
-        name: RegexFileSorter
-        path: |
-          RegexFileSorter\bin\Release\net5.0-windows\*.exe
-          RegexFileSorter\bin\Release\net5.0-windows\*.dll
-          RegexFileSorter\bin\Release\net5.0-windows\**\*.dll
-          RegexFileSorter\bin\Release\net5.0-windows\RegexFileSorter.runtimeconfig.json
+        name: RegexFileSorter(${{ matrix.profile }})
+        path: RegexFileSorterWF\bin\Release\net6.0-windows\publish\${{ matrix.profile }}\RegexFileSorterWF.exe
         if-no-files-found: error
