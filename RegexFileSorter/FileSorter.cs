@@ -34,17 +34,17 @@ namespace RegexFileSorter
             RefreshOutDirectories();
             _groups.Clear();
 
-            var Result = new List<(string Path, string Match)>();
+            var Matches = new List<(string Path, string Match)>();
             var S = Directory.GetFiles(_profile.SFolder);
             var R = new Regex(_profile.Regex);
             foreach (var File in S)
             {
                 var M = R.Match(Path.GetFileName(File));
-                if (M.Success) { Result.Add((File, M.Groups["S"].Value)); }
+                if (M.Success) { Matches.Add((File, M.Groups["S"].Value)); }
             }
 
-            var Groups = Result.ToLookup(X => X.Match, X => X.Path);
-            foreach (var Group in Groups)
+            var Lookup = Matches.ToLookup(X => X.Match, X => X.Path);
+            foreach (var Group in Lookup)
             {
                 var SF = new GroupedFiles(Group.Key);
                 foreach (var File in Group)

@@ -29,8 +29,6 @@ namespace RegexFileSorterWF.Controls
 
         protected override void OnDragEnter(DragEventArgs e) => ProcessDrag(e);
 
-        //protected override void OnDragLeave(EventArgs e) => base.OnDragLeave(e);
-
         protected override void OnDragOver(DragEventArgs e) => ProcessDrag(e);
 
         private static void ProcessDrag(DragEventArgs e)

@@ -63,7 +63,7 @@ namespace RegexFileSorterWF
             foreach (var profile in ProfileManager.Profiles)
             {
                 var Load = new ToolStripMenuItem(profile.Key);
-                Load.Click += (object? _, EventArgs e) =>
+                Load.Click += (object? _, EventArgs _) =>
                 {
                     ProfileManager.SetCurrent(profile.Key);
                     RefreshMenu();
@@ -72,7 +72,7 @@ namespace RegexFileSorterWF
                 MI_Load.DropDownItems.Add(Load);
 
                 var Delete = new ToolStripMenuItem(profile.Key);
-                Delete.Click += (object? _, EventArgs e) =>
+                Delete.Click += (object? _, EventArgs _) =>
                 {
                     if (this.AskYesNo($"Delete profile \"{profile.Key}\"?", "Delete profile") == DialogResult.No) { return; }
                     ProfileManager.Remove(profile.Key);
