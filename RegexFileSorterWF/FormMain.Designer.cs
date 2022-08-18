@@ -59,6 +59,7 @@
             this.MI_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.MI_Load = new System.Windows.Forms.ToolStripMenuItem();
             this.MI_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.B_About = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BS_Config)).BeginInit();
@@ -375,7 +376,8 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.B_About});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(969, 25);
@@ -412,6 +414,16 @@
             this.MI_Delete.Size = new System.Drawing.Size(107, 22);
             this.MI_Delete.Text = "Delete";
             // 
+            // B_About
+            // 
+            this.B_About.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.B_About.Image = global::RegexFileSorterWF.Icons8.Info16;
+            this.B_About.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.B_About.Name = "B_About";
+            this.B_About.Size = new System.Drawing.Size(60, 22);
+            this.B_About.Text = "About";
+            this.B_About.Click += new System.EventHandler(this.B_About_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -423,7 +435,7 @@
             this.Controls.Add(this.toolStrip1);
             this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "FormMain";
-            this.Text = "Тут могла быть ваша реклама";
+            this.Text = "RegexFileSorter";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -474,5 +486,6 @@
         private CheckBox checkBox1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
+        private ToolStripButton B_About;
     }
 }

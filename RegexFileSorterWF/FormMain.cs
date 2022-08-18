@@ -42,6 +42,12 @@ namespace RegexFileSorterWF
             list.EndUpdate();
         }
 
+        private void FixWidth()
+        {
+            LV_Unsorted.Columns[0].Width = LV_Unsorted.Width - 25;
+            LV_Sorted.Columns[0].Width = LV_Sorted.Width - 25;
+        }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             RefreshMenu();
@@ -54,6 +60,7 @@ namespace RegexFileSorterWF
             LV_Unsorted.DoubleBuferred();
             LV_Unsorted.View = View.Details;
             LV_Unsorted.HeaderStyle = ColumnHeaderStyle.None;
+            FixWidth();
         }
 
         private void RefreshMenu()
@@ -99,6 +106,12 @@ namespace RegexFileSorterWF
 
         #region UI Events
 
+        private void B_About_Click(object sender, EventArgs e)
+        {
+            var F = new FormAbout();
+            F.ShowDialog(this);
+        }
+
         private void B_Move_Click(object sender, EventArgs e)
         {
             Sorter?.MoveValidFiles();
@@ -116,11 +129,7 @@ namespace RegexFileSorterWF
             //TODO
         }
 
-        private void FormMain_Resize(object sender, EventArgs e)
-        {
-            LV_Unsorted.Columns[0].Width = LV_Unsorted.Width - 25;
-            LV_Sorted.Columns[0].Width = LV_Sorted.Width - 25;
-        }
+        private void FormMain_Resize(object sender, EventArgs e) => FixWidth();
 
         private void LV_Sorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
         {
