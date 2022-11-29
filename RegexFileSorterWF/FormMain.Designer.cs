@@ -207,7 +207,6 @@
             // 
             // BS_Config
             // 
-            this.BS_Config.DataSource = typeof(RegexFileSorter.Profile);
             this.BS_Config.CurrentItemChanged += new System.EventHandler(this.BS_Config_CurrentItemChanged);
             // 
             // tableLayoutPanel2
@@ -341,11 +340,11 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 42);
+            this.label2.Location = new System.Drawing.Point(7, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 15);
+            this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Destination";
+            this.label2.Text = "Target folder";
             // 
             // B_SelectD
             // 

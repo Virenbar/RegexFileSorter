@@ -38,8 +38,8 @@ namespace RegexFileSorter
 
         public static void Save()
         {
-            File.WriteAllText(CurrentFile, JsonConvert.SerializeObject(Current));
-            File.WriteAllText(ProfilesFile, JsonConvert.SerializeObject(Profiles));
+            File.WriteAllText(CurrentFile, JsonConvert.SerializeObject(Current, Formatting.Indented));
+            File.WriteAllText(ProfilesFile, JsonConvert.SerializeObject(Profiles, Formatting.Indented));
         }
 
         public static void SetCurrent(string name) => Current = Profiles[name].Clone();
