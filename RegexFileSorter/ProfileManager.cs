@@ -5,20 +5,20 @@ namespace RegexFileSorter
     public static class ProfileManager
     {
         private const string CurrentFile = "Current.json", ProfilesFile = "Profiles.json";
+        private static Dictionary<string, Profile> profiles;
 
         static ProfileManager()
         {
             Current = new();
-            Profiles = new() { { "Default", new() } };
+            profiles = new() { { "Default", new() } };
         }
 
         public static Profile Current { get; set; }
-        public static IReadOnlyDictionary<string, Profile> p => Profiles;
-        public static Dictionary<string, Profile> Profiles { get; set; }
+        public static IReadOnlyDictionary<string, Profile> Profiles => profiles;
 
         public static void Add(string name) => Add(name, Current);
 
-        public static void Add(string name, Profile profile) => Profiles[name] = profile.Clone();
+        public static void Add(string name, Profile profile) => profiles[name] = profile.Clone();
 
         public static bool Contains(string name) => Profiles.ContainsKey(name);
 
@@ -30,11 +30,11 @@ namespace RegexFileSorter
             }
             if (File.Exists(ProfilesFile))
             {
-                Profiles = JsonConvert.DeserializeObject<Dictionary<string, Profile>>(File.ReadAllText(ProfilesFile)) ?? Profiles;
+                profiles = JsonConvert.DeserializeObject<Dictionary<string, Profile>>(File.ReadAllText(ProfilesFile)) ?? profiles;
             }
         }
 
-        public static void Remove(string name) => Profiles.Remove(name);
+        public static void Remove(string name) => profiles.Remove(name);
 
         public static void Save()
         {

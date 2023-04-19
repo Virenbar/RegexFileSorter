@@ -1,19 +1,17 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace RegexFileSorter
+﻿namespace RegexFileSorter
 {
-    public class Profile : INotifyPropertyChanged
+    public class Profile : ObservableObject
 
     {
-        private string m_DFolder = "";
-        private string m_SFolder = "";
+        private string sourceFolder = "";
+        private string targetFolder = "";
 
         public Profile()
         {
-            SFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            DFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Regex = @"(?<S>[\w]+?)_";//^\d+\.(?<S>[\w-]+?)_
+            SourceFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            TargetFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            Pattern = @"^([\w]+?)_.*";//^\d+\.([\w-]+?)_
+            Replacement = "$1";
             InPlace = false;
             CreateNew = false;
             SearchFolder = true;
@@ -21,9 +19,10 @@ namespace RegexFileSorter
 
         protected Profile(Profile config)
         {
-            SFolder = config.SFolder;
-            DFolder = config.DFolder;
-            Regex = config.Regex;
+            SourceFolder = config.SourceFolder;
+            TargetFolder = config.TargetFolder;
+            Pattern = config.Pattern;
+            Replacement = config.Replacement;
             InPlace = config.InPlace;
             CreateNew = config.CreateNew;
             SearchFolder = config.SearchFolder;
@@ -34,39 +33,38 @@ namespace RegexFileSorter
         #region Properties
         public bool CreateNew { get; set; }
 
-        public string DFolder
+        public bool InPlace { get; set; }
+
+        public string OutFolder => InPlace ? SourceFolder : TargetFolder;
+
+        public string Pattern { get; set; }
+
+        public string Replacement { get; set; }
+
+        public bool SearchFolder { get; set; }
+
+        public string SourceFolder
         {
-            get => m_DFolder;
+            get => sourceFolder;
             set
             {
-                m_DFolder = value;
+                if (sourceFolder == value) { return; }
+                sourceFolder = value;
                 OnPropertyChanged();
             }
         }
 
-        public bool InPlace { get; set; }
-        public string OutFolder => InPlace ? SFolder : DFolder;
-        public string Regex { get; set; }
-        public bool SearchFolder { get; set; }
-
-        public string SFolder
+        public string TargetFolder
         {
-            get => m_SFolder;
+            get => targetFolder;
             set
             {
-                m_SFolder = value;
+                if (targetFolder == value) { return; }
+                targetFolder = value;
                 OnPropertyChanged();
             }
         }
 
         #endregion Properties
-
-        #region INotify
-
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        #endregion INotify
     }
 }

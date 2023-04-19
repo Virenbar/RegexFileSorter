@@ -1,66 +1,39 @@
 using RegexFileSorter;
 using RegexFileSorterWF.Controls;
+using RegexFileSorterWF.Models;
+using RegexFileSorterWF.Properties;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace RegexFileSorterWF
 {
     public partial class FormMain : Form
     {
+        private GroupedFiles? Group;
         private FileSorter? Sorter;
 
         public FormMain()
         {
             InitializeComponent();
-            Icon = Properties.Resources.RFS_Icon;
-            DoubleBuffered = true;
+            this.AddStyleDataBindigs();
+            this.DoubleBuferred();
+            Icon = Resources.RFS_Icon;
         }
 
-        private static void RefreshList(IEnumerable<GroupedFiles> groups, ListView list)
+        private static void RefreshTree(TreeView tree, IEnumerable<GroupedFiles> groups)
         {
-            var Groups = groups
-                .OrderBy(g => g.Name)
-                .OrderByDescending(g => g.Files.Count)
-                .Select(group => new ListViewGroup($"{group.Name} - {group.Files.Count}")
-                {
-                    TaskLink = group.Status,
-                    CollapsedState = ListViewGroupCollapsedState.Collapsed,
-                    Tag = group
-                });
-
-            list.BeginUpdate();
-            list.Items.Clear();
-            foreach (var group in Groups)
-            {
-                var Items = ((GroupedFiles)group.Tag!).Files.Select(file =>
-                    {
-                        var LVI = new ListViewItem(file.FileName) { Group = group };
-                        return LVI;
-                    });
-                list.Groups.Add(group);
-                list.Items.AddRange(Items.ToArray());
-            }
-            list.EndUpdate();
-        }
-
-        private void FixWidth()
-        {
-            LV_Unsorted.Columns[0].Width = LV_Unsorted.Width - 25;
-            LV_Sorted.Columns[0].Width = LV_Sorted.Width - 25;
+            tree.BeginUpdate();
+            var m = groups.Max(G => G.Name);
+            tree.Nodes.Clear();
+            var nodes = groups.Select(g => new GroupTreeNode(g)).ToArray();
+            tree.Nodes.AddRange(nodes);
+            tree.EndUpdate();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             RefreshMenu();
             RefreshUI();
-
-            LV_Sorted.DoubleBuferred();
-            LV_Sorted.View = View.Details;
-            LV_Sorted.HeaderStyle = ColumnHeaderStyle.None;
-
-            LV_Unsorted.DoubleBuferred();
-            LV_Unsorted.View = View.Details;
-            LV_Unsorted.HeaderStyle = ColumnHeaderStyle.None;
-            FixWidth();
         }
 
         private void RefreshMenu()
@@ -73,7 +46,8 @@ namespace RegexFileSorterWF
                 Load.Click += (object? _, EventArgs _) =>
                 {
                     ProfileManager.SetCurrent(profile.Key);
-                    RefreshMenu();
+                    BS_Config.DataSource = ProfileManager.Current;
+                    //RefreshMenu();
                     RefreshUI();
                 };
                 MI_Load.DropDownItems.Add(Load);
@@ -87,21 +61,28 @@ namespace RegexFileSorterWF
                 };
                 MI_Delete.DropDownItems.Add(Delete);
             }
+            BS_Config.DataSource = ProfileManager.Current;
         }
 
         private void RefreshUI()
         {
-            BS_Config.DataSource = ProfileManager.Current;
+            if (Sorter is null) { return; }
+
+            L_CountSorted.Text = Regex.Replace(L_CountSorted.Text, @"\d+", $"{Sorter.SortedCount}");
+            L_CountUnsorted.Text = Regex.Replace(L_CountUnsorted.Text, @"\d+", $"{Sorter.UnsortedCount}");
+            MI_CopyName.Enabled = Group is not null;
+            MI_OpenFolder.Enabled = Group?.IsSorted ?? false;
+
+            B_Move.Enabled = Sorter.SortedGroups.Count > 0;
         }
 
         private void SortFiles()
         {
             Sorter = new(ProfileManager.Current);
             Sorter.SortFiles();
-            RefreshList(Sorter.SortedGroups, LV_Sorted);
-            RefreshList(Sorter.UnsortedGroups, LV_Unsorted);
-            L_Count.Text = $"Files: {Sorter.SortedFiles}";
-            B_Move.Enabled = Sorter.SortedGroups.Count > 0;
+            RefreshTree(TV_Sorted, Sorter.SortedGroups);
+            RefreshTree(TV_Unsorted, Sorter.UnsortedGroups);
+            RefreshUI();
         }
 
         #region UI Events
@@ -129,29 +110,21 @@ namespace RegexFileSorterWF
             //TODO
         }
 
-        private void FormMain_Resize(object sender, EventArgs e) => FixWidth();
-
-        private void LV_Sorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
+        private void MI_CopyName_Click(object sender, EventArgs e)
         {
-            var S = (GroupedFiles)LV_Sorted.Groups[e.GroupIndex].Tag!;
-            if (!Directory.Exists(S.Path))
+            if (Group is null) { return; }
+            Clipboard.SetText(Group.Name);
+        }
+
+        private void MI_OpenFolder_Click(object sender, EventArgs e)
+        {
+            if (Group is null) { return; }
+            if (!Directory.Exists(Group.Path))
             {
-                if (MessageBox.Show(this, $"Create folder \"{Path.GetFileName(S.Path)}\"?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                { Directory.CreateDirectory(S.Path); }
-                else { return; }
+                if (this.AskYesNo($"Create folder \"{Path.GetFileName(Group.Path)}\"?", "Warning") == DialogResult.No) { return; }
+                Directory.CreateDirectory(Group.Path);
             }
-            Process.Start(new ProcessStartInfo(S.Path) { UseShellExecute = true });
-        }
-
-        private void LV_Unsorted_GroupTaskLinkClick(object sender, ListViewGroupEventArgs e)
-        {
-            var S = (GroupedFiles)LV_Unsorted.Groups[e.GroupIndex].Tag!;
-            Clipboard.SetText(S.Name);
-        }
-
-        private void LV_Unsorted_ItemActivate(object sender, EventArgs e)
-        {
-            //TODO
+            Process.Start(new ProcessStartInfo(Group.Path) { UseShellExecute = true });
         }
 
         private void MI_Save_Click(object sender, EventArgs e)
@@ -160,29 +133,42 @@ namespace RegexFileSorterWF
             var Done = false;
             while (!Done)
             {
-                var F = new InputBox { Header = "Input name for profile", Value = Name };
+                using var F = new InputBox { Text = "Profile name", Header = "Input name for profile", Value = Name };
                 if (F.ShowDialog(this) == DialogResult.Cancel) { return; }
                 Name = F.Value;
                 if (!ProfileManager.Contains(Name)) { break; }
-                switch (MessageBox.Show(this, $"Profile \"{Name}\" alredy exists.\nOverwrite it?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                // Ask for overwrite
+                var Result = this.AskYesNoCancel($"Profile \"{Name}\" already exists.\nOverwrite it?", "Warning");
+                if (Result == DialogResult.Cancel) { return; }
+                Done = Result switch
                 {
-                    case DialogResult.Yes:
-                        Done = true;
-                        break;
-
-                    case DialogResult.No:
-                        break;
-
-                    case DialogResult.Cancel:
-                        return;
-
-                    default:
-                        return;
-                }
+                    DialogResult.Yes => true,
+                    _ => false
+                };
             }
             ProfileManager.Add(Name);
             RefreshUI();
             RefreshMenu();
+        }
+
+        private void TV_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender is TreeView tv && e.Button == MouseButtons.Right)
+            {
+                tv.SelectedNode = tv.GetNodeAt(e.X, e.Y);
+            }
+        }
+
+        private void TV_Sorted_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Group = ((GroupTreeNode)TV_Sorted.SelectedNode)?.Group;
+            RefreshUI();
+        }
+
+        private void TV_Unsorted_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Group = ((GroupTreeNode)TV_Unsorted.SelectedNode)?.Group;
+            RefreshUI();
         }
 
         #endregion UI Events

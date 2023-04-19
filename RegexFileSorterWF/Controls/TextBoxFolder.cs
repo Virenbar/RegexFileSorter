@@ -2,6 +2,9 @@
 
 namespace RegexFileSorterWF.Controls
 {
+    /// <summary>
+    /// TextBox with DragDrop support for folders
+    /// </summary>
     public partial class TextBoxFolder : TextBox
     {
         public TextBoxFolder()
@@ -14,6 +17,9 @@ namespace RegexFileSorterWF.Controls
         [DefaultValue(true)]
         public new bool ReadOnly { get; } = true;
 
+        /// <summary>
+        /// Open folder selection dialog
+        /// </summary>
         public void SelectFolder()
         {
             var F = new FolderBrowserDialog { InitialDirectory = Text };

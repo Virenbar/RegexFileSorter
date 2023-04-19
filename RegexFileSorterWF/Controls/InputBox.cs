@@ -5,7 +5,7 @@
         public InputBox()
         {
             InitializeComponent();
-            BackColor = Constants.BackColor;
+            this.AddStyleDataBindigs();
         }
 
         public string Header

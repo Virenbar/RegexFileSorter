@@ -28,437 +28,483 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.B_Sort = new System.Windows.Forms.Button();
-            this.L_Count = new System.Windows.Forms.Label();
-            this.B_Move = new System.Windows.Forms.Button();
-            this.LV_Unsorted = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.LV_Sorted = new System.Windows.Forms.ListView();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.BS_Config = new System.Windows.Forms.BindingSource(this.components);
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.TB_Source = new RegexFileSorterWF.Controls.TextBoxFolder();
-            this.TB_Destination = new RegexFileSorterWF.Controls.TextBoxFolder();
-            this.B_SelectS = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.B_SelectD = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.MI_Save = new System.Windows.Forms.ToolStripMenuItem();
-            this.MI_Load = new System.Windows.Forms.ToolStripMenuItem();
-            this.MI_Delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.B_About = new System.Windows.Forms.ToolStripButton();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BS_Config)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            B_Move = new Button();
+            TV_Unsorted = new TreeView();
+            CMS_Tree = new ContextMenuStrip(components);
+            MI_CopyName = new ToolStripMenuItem();
+            MI_OpenFolder = new ToolStripMenuItem();
+            TV_Sorted = new TreeView();
+            L_CountUnsorted = new Label();
+            L_CountSorted = new Label();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            B_Sort = new Button();
+            BS_Config = new BindingSource(components);
+            tableLayoutPanel2 = new TableLayoutPanel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            label6 = new Label();
+            TB_Source = new Controls.TextBoxFolder();
+            TB_Destination = new Controls.TextBoxFolder();
+            B_SelectS = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            B_SelectD = new Button();
+            label7 = new Label();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            checkBox1 = new CheckBox();
+            toolStrip1 = new ToolStrip();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            MI_Save = new ToolStripMenuItem();
+            MI_Load = new ToolStripMenuItem();
+            MI_Delete = new ToolStripMenuItem();
+            B_About = new ToolStripButton();
+            tableLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            CMS_Tree.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BS_Config).BeginInit();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.LV_Unsorted, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.LV_Sorted, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 151);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 347);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 1, 2);
+            tableLayoutPanel1.Controls.Add(TV_Unsorted, 0, 1);
+            tableLayoutPanel1.Controls.Add(TV_Sorted, 1, 1);
+            tableLayoutPanel1.Controls.Add(L_CountUnsorted, 0, 0);
+            tableLayoutPanel1.Controls.Add(L_CountSorted, 1, 0);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel2, 0, 2);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 151);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.Size = new Size(997, 472);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel1.Controls.Add(this.B_Sort);
-            this.flowLayoutPanel1.Controls.Add(this.L_Count);
-            this.flowLayoutPanel1.Controls.Add(this.B_Move);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(726, 311);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(240, 33);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // B_Sort
-            // 
-            this.B_Sort.AutoSize = true;
-            this.B_Sort.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_Sort.Image = global::RegexFileSorterWF.Icons8.Synchronize16;
-            this.B_Sort.Location = new System.Drawing.Point(3, 3);
-            this.B_Sort.Name = "B_Sort";
-            this.B_Sort.Padding = new System.Windows.Forms.Padding(1);
-            this.B_Sort.Size = new System.Drawing.Size(80, 27);
-            this.B_Sort.TabIndex = 0;
-            this.B_Sort.Text = "Sort files";
-            this.B_Sort.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.B_Sort.UseVisualStyleBackColor = true;
-            this.B_Sort.Click += new System.EventHandler(this.B_Sort_Click);
-            // 
-            // L_Count
-            // 
-            this.L_Count.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.L_Count.AutoSize = true;
-            this.L_Count.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.L_Count.Location = new System.Drawing.Point(89, 8);
-            this.L_Count.Name = "L_Count";
-            this.L_Count.Size = new System.Drawing.Size(51, 17);
-            this.L_Count.TabIndex = 3;
-            this.L_Count.Text = "Files: 0";
+            flowLayoutPanel1.Anchor = AnchorStyles.Top;
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel1.Controls.Add(B_Move);
+            flowLayoutPanel1.Location = new Point(699, 436);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(97, 33);
+            flowLayoutPanel1.TabIndex = 1;
             // 
             // B_Move
             // 
-            this.B_Move.AutoSize = true;
-            this.B_Move.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_Move.Image = global::RegexFileSorterWF.Icons8.Ok16;
-            this.B_Move.Location = new System.Drawing.Point(146, 3);
-            this.B_Move.Name = "B_Move";
-            this.B_Move.Padding = new System.Windows.Forms.Padding(1);
-            this.B_Move.Size = new System.Drawing.Size(91, 27);
-            this.B_Move.TabIndex = 0;
-            this.B_Move.Text = "Move Files";
-            this.B_Move.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.B_Move.UseVisualStyleBackColor = true;
-            this.B_Move.Click += new System.EventHandler(this.B_Move_Click);
+            B_Move.AutoSize = true;
+            B_Move.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            B_Move.Enabled = false;
+            B_Move.Image = Icons8.Ok16;
+            B_Move.Location = new Point(3, 3);
+            B_Move.Name = "B_Move";
+            B_Move.Padding = new Padding(1);
+            B_Move.Size = new Size(91, 27);
+            B_Move.TabIndex = 0;
+            B_Move.Text = "Move Files";
+            B_Move.TextImageRelation = TextImageRelation.ImageBeforeText;
+            B_Move.UseVisualStyleBackColor = true;
+            B_Move.Click += B_Move_Click;
             // 
-            // LV_Unsorted
+            // TV_Unsorted
             // 
-            this.LV_Unsorted.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.LV_Unsorted.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LV_Unsorted.FullRowSelect = true;
-            this.LV_Unsorted.GridLines = true;
-            this.LV_Unsorted.Location = new System.Drawing.Point(3, 20);
-            this.LV_Unsorted.MultiSelect = false;
-            this.LV_Unsorted.Name = "LV_Unsorted";
-            this.LV_Unsorted.Size = new System.Drawing.Size(478, 285);
-            this.LV_Unsorted.TabIndex = 2;
-            this.LV_Unsorted.UseCompatibleStateImageBehavior = false;
-            this.LV_Unsorted.View = System.Windows.Forms.View.Details;
-            this.LV_Unsorted.GroupTaskLinkClick += new System.EventHandler<System.Windows.Forms.ListViewGroupEventArgs>(this.LV_Unsorted_GroupTaskLinkClick);
-            this.LV_Unsorted.ItemActivate += new System.EventHandler(this.LV_Unsorted_ItemActivate);
+            TV_Unsorted.ContextMenuStrip = CMS_Tree;
+            TV_Unsorted.Dock = DockStyle.Fill;
+            TV_Unsorted.Location = new Point(3, 20);
+            TV_Unsorted.Name = "TV_Unsorted";
+            TV_Unsorted.Size = new Size(492, 410);
+            TV_Unsorted.TabIndex = 5;
+            TV_Unsorted.AfterSelect += TV_Unsorted_AfterSelect;
+            TV_Unsorted.MouseDown += TV_MouseDown;
             // 
-            // columnHeader1
+            // CMS_Tree
             // 
-            this.columnHeader1.Text = "Name";
+            CMS_Tree.Items.AddRange(new ToolStripItem[] { MI_CopyName, MI_OpenFolder });
+            CMS_Tree.Name = "contextMenuStrip1";
+            CMS_Tree.Size = new Size(171, 48);
             // 
-            // LV_Sorted
+            // MI_CopyName
             // 
-            this.LV_Sorted.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.LV_Sorted.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LV_Sorted.FullRowSelect = true;
-            this.LV_Sorted.GridLines = true;
-            this.LV_Sorted.Location = new System.Drawing.Point(487, 20);
-            this.LV_Sorted.MultiSelect = false;
-            this.LV_Sorted.Name = "LV_Sorted";
-            this.LV_Sorted.Size = new System.Drawing.Size(479, 285);
-            this.LV_Sorted.TabIndex = 2;
-            this.LV_Sorted.UseCompatibleStateImageBehavior = false;
-            this.LV_Sorted.View = System.Windows.Forms.View.Details;
-            this.LV_Sorted.GroupTaskLinkClick += new System.EventHandler<System.Windows.Forms.ListViewGroupEventArgs>(this.LV_Sorted_GroupTaskLinkClick);
+            MI_CopyName.Image = Icons8.CopyToClipboard16;
+            MI_CopyName.Name = "MI_CopyName";
+            MI_CopyName.Size = new Size(170, 22);
+            MI_CopyName.Text = "Copy group name";
+            MI_CopyName.Click += MI_CopyName_Click;
             // 
-            // columnHeader2
+            // MI_OpenFolder
             // 
-            this.columnHeader2.Text = "Name";
+            MI_OpenFolder.Image = Icons8.OpenedFolder16;
+            MI_OpenFolder.Name = "MI_OpenFolder";
+            MI_OpenFolder.Size = new Size(170, 22);
+            MI_OpenFolder.Text = "Open folder";
+            MI_OpenFolder.Click += MI_OpenFolder_Click;
             // 
-            // label3
+            // TV_Sorted
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(195, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Unsorted files";
+            TV_Sorted.ContextMenuStrip = CMS_Tree;
+            TV_Sorted.Dock = DockStyle.Fill;
+            TV_Sorted.Location = new Point(501, 20);
+            TV_Sorted.Name = "TV_Sorted";
+            TV_Sorted.Size = new Size(493, 410);
+            TV_Sorted.TabIndex = 5;
+            TV_Sorted.AfterSelect += TV_Sorted_AfterSelect;
+            TV_Sorted.MouseDown += TV_MouseDown;
             // 
-            // label4
+            // L_CountUnsorted
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(687, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Sorted files";
+            L_CountUnsorted.Anchor = AnchorStyles.None;
+            L_CountUnsorted.AutoSize = true;
+            L_CountUnsorted.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            L_CountUnsorted.Location = new Point(192, 0);
+            L_CountUnsorted.Name = "L_CountUnsorted";
+            L_CountUnsorted.Size = new Size(114, 17);
+            L_CountUnsorted.TabIndex = 3;
+            L_CountUnsorted.Text = "Unsorted files - 0";
+            // 
+            // L_CountSorted
+            // 
+            L_CountSorted.Anchor = AnchorStyles.None;
+            L_CountSorted.AutoSize = true;
+            L_CountSorted.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            L_CountSorted.Location = new Point(698, 0);
+            L_CountSorted.Name = "L_CountSorted";
+            L_CountSorted.Size = new Size(98, 17);
+            L_CountSorted.TabIndex = 3;
+            L_CountSorted.Text = "Sorted files - 0";
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Anchor = AnchorStyles.Top;
+            flowLayoutPanel2.AutoSize = true;
+            flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel2.Controls.Add(B_Sort);
+            flowLayoutPanel2.Location = new Point(206, 436);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(86, 33);
+            flowLayoutPanel2.TabIndex = 6;
+            // 
+            // B_Sort
+            // 
+            B_Sort.AutoSize = true;
+            B_Sort.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            B_Sort.Image = Icons8.Synchronize16;
+            B_Sort.Location = new Point(3, 3);
+            B_Sort.Name = "B_Sort";
+            B_Sort.Padding = new Padding(1);
+            B_Sort.Size = new Size(80, 27);
+            B_Sort.TabIndex = 0;
+            B_Sort.Text = "Sort files";
+            B_Sort.TextImageRelation = TextImageRelation.ImageBeforeText;
+            B_Sort.UseVisualStyleBackColor = true;
+            B_Sort.Click += B_Sort_Click;
             // 
             // BS_Config
             // 
-            this.BS_Config.CurrentItemChanged += new System.EventHandler(this.BS_Config_CurrentItemChanged);
+            BS_Config.DataSource = typeof(RegexFileSorter.Profile);
+            BS_Config.CurrentItemChanged += BS_Config_CurrentItemChanged;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel3, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.TB_Source, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.TB_Destination, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.B_SelectS, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.B_SelectD, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 2);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 25);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(969, 126);
-            this.tableLayoutPanel2.TabIndex = 3;
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel4, 1, 2);
+            tableLayoutPanel2.Controls.Add(TB_Source, 1, 0);
+            tableLayoutPanel2.Controls.Add(TB_Destination, 1, 1);
+            tableLayoutPanel2.Controls.Add(B_SelectS, 2, 0);
+            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Controls.Add(label2, 0, 1);
+            tableLayoutPanel2.Controls.Add(B_SelectD, 2, 1);
+            tableLayoutPanel2.Controls.Add(label7, 0, 2);
+            tableLayoutPanel2.Controls.Add(flowLayoutPanel3, 1, 3);
+            tableLayoutPanel2.Dock = DockStyle.Top;
+            tableLayoutPanel2.Location = new Point(0, 25);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Size = new Size(997, 126);
+            tableLayoutPanel2.TabIndex = 3;
             // 
-            // flowLayoutPanel3
+            // tableLayoutPanel4
             // 
-            this.flowLayoutPanel3.AutoSize = true;
-            this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel3.Controls.Add(this.checkBox2);
-            this.flowLayoutPanel3.Controls.Add(this.checkBox3);
-            this.flowLayoutPanel3.Controls.Add(this.checkBox1);
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(86, 98);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(369, 25);
-            this.flowLayoutPanel3.TabIndex = 4;
+            tableLayoutPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel4.AutoSize = true;
+            tableLayoutPanel4.ColumnCount = 3;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(textBox2, 0, 0);
+            tableLayoutPanel4.Controls.Add(textBox3, 2, 0);
+            tableLayoutPanel4.Controls.Add(label6, 1, 0);
+            tableLayoutPanel4.Location = new Point(83, 66);
+            tableLayoutPanel4.Margin = new Padding(0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle());
+            tableLayoutPanel4.Size = new Size(808, 29);
+            tableLayoutPanel4.TabIndex = 5;
             // 
-            // checkBox2
+            // textBox2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.BS_Config, "InPlace", true));
-            this.checkBox2.Location = new System.Drawing.Point(3, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(132, 19);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Sort in source folder";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            textBox2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            textBox2.DataBindings.Add(new Binding("Text", BS_Config, "Pattern", true));
+            textBox2.Location = new Point(3, 3);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(357, 23);
+            textBox2.TabIndex = 4;
             // 
-            // checkBox3
+            // textBox3
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.BS_Config, "CreateNew", true));
-            this.checkBox3.Location = new System.Drawing.Point(141, 3);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(124, 19);
-            this.checkBox3.TabIndex = 1;
-            this.checkBox3.Text = "Create new folders";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            textBox3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            textBox3.DataBindings.Add(new Binding("Text", BS_Config, "Replacement", true));
+            textBox3.Location = new Point(448, 3);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(357, 23);
+            textBox3.TabIndex = 4;
             // 
-            // checkBox1
+            // label6
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.BS_Config, "SearchFolder", true));
-            this.checkBox1.Location = new System.Drawing.Point(271, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 19);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Search folder";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "Regex", true));
-            this.textBox1.Location = new System.Drawing.Point(86, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(774, 23);
-            this.textBox1.TabIndex = 5;
+            label6.Anchor = AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Location = new Point(366, 7);
+            label6.Name = "label6";
+            label6.Size = new Size(76, 15);
+            label6.TabIndex = 3;
+            label6.Text = "Replacement";
             // 
             // TB_Source
             // 
-            this.TB_Source.AllowDrop = true;
-            this.TB_Source.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TB_Source.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "SFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TB_Source.Location = new System.Drawing.Point(86, 5);
-            this.TB_Source.Name = "TB_Source";
-            this.TB_Source.Size = new System.Drawing.Size(774, 23);
-            this.TB_Source.TabIndex = 1;
+            TB_Source.AllowDrop = true;
+            TB_Source.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TB_Source.DataBindings.Add(new Binding("Text", BS_Config, "SourceFolder", true, DataSourceUpdateMode.OnPropertyChanged));
+            TB_Source.Location = new Point(86, 5);
+            TB_Source.Name = "TB_Source";
+            TB_Source.Size = new Size(802, 23);
+            TB_Source.TabIndex = 1;
             // 
             // TB_Destination
             // 
-            this.TB_Destination.AllowDrop = true;
-            this.TB_Destination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TB_Destination.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.BS_Config, "DFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TB_Destination.Location = new System.Drawing.Point(86, 38);
-            this.TB_Destination.Name = "TB_Destination";
-            this.TB_Destination.Size = new System.Drawing.Size(774, 23);
-            this.TB_Destination.TabIndex = 1;
+            TB_Destination.AllowDrop = true;
+            TB_Destination.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TB_Destination.DataBindings.Add(new Binding("Text", BS_Config, "TargetFolder", true, DataSourceUpdateMode.OnPropertyChanged));
+            TB_Destination.Location = new Point(86, 38);
+            TB_Destination.Name = "TB_Destination";
+            TB_Destination.Size = new Size(802, 23);
+            TB_Destination.TabIndex = 1;
             // 
             // B_SelectS
             // 
-            this.B_SelectS.AutoSize = true;
-            this.B_SelectS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_SelectS.Image = global::RegexFileSorterWF.Icons8.OpenedFolder16;
-            this.B_SelectS.Location = new System.Drawing.Point(866, 3);
-            this.B_SelectS.Name = "B_SelectS";
-            this.B_SelectS.Padding = new System.Windows.Forms.Padding(1);
-            this.B_SelectS.Size = new System.Drawing.Size(100, 27);
-            this.B_SelectS.TabIndex = 2;
-            this.B_SelectS.Text = "Select folder";
-            this.B_SelectS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.B_SelectS.UseVisualStyleBackColor = true;
-            this.B_SelectS.Click += new System.EventHandler(this.B_SelectS_Click);
+            B_SelectS.AutoSize = true;
+            B_SelectS.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            B_SelectS.Image = Icons8.OpenedFolder16;
+            B_SelectS.Location = new Point(894, 3);
+            B_SelectS.Name = "B_SelectS";
+            B_SelectS.Padding = new Padding(1);
+            B_SelectS.Size = new Size(100, 27);
+            B_SelectS.TabIndex = 2;
+            B_SelectS.Text = "Select folder";
+            B_SelectS.TextImageRelation = TextImageRelation.ImageBeforeText;
+            B_SelectS.UseVisualStyleBackColor = true;
+            B_SelectS.Click += B_SelectS_Click;
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Source folder";
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Location = new Point(3, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Source folder";
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Target folder";
+            label2.Anchor = AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Location = new Point(7, 42);
+            label2.Name = "label2";
+            label2.Size = new Size(73, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Target folder";
             // 
             // B_SelectD
             // 
-            this.B_SelectD.AutoSize = true;
-            this.B_SelectD.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.B_SelectD.Image = global::RegexFileSorterWF.Icons8.OpenedFolder16;
-            this.B_SelectD.Location = new System.Drawing.Point(866, 36);
-            this.B_SelectD.Name = "B_SelectD";
-            this.B_SelectD.Padding = new System.Windows.Forms.Padding(1);
-            this.B_SelectD.Size = new System.Drawing.Size(100, 27);
-            this.B_SelectD.TabIndex = 2;
-            this.B_SelectD.Text = "Select folder";
-            this.B_SelectD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.B_SelectD.UseVisualStyleBackColor = true;
-            this.B_SelectD.Click += new System.EventHandler(this.B_SelectD_Click);
+            B_SelectD.AutoSize = true;
+            B_SelectD.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            B_SelectD.Image = Icons8.OpenedFolder16;
+            B_SelectD.Location = new Point(894, 36);
+            B_SelectD.Name = "B_SelectD";
+            B_SelectD.Padding = new Padding(1);
+            B_SelectD.Size = new Size(100, 27);
+            B_SelectD.TabIndex = 2;
+            B_SelectD.Text = "Select folder";
+            B_SelectD.TextImageRelation = TextImageRelation.ImageBeforeText;
+            B_SelectD.UseVisualStyleBackColor = true;
+            B_SelectD.Click += B_SelectD_Click;
             // 
-            // label5
+            // label7
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 15);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "RegEx";
+            label7.Anchor = AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Location = new Point(35, 73);
+            label7.Name = "label7";
+            label7.Size = new Size(45, 15);
+            label7.TabIndex = 3;
+            label7.Text = "Pattern";
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.AutoSize = true;
+            flowLayoutPanel3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel3.Controls.Add(checkBox2);
+            flowLayoutPanel3.Controls.Add(checkBox3);
+            flowLayoutPanel3.Controls.Add(checkBox1);
+            flowLayoutPanel3.Location = new Point(86, 98);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(369, 25);
+            flowLayoutPanel3.TabIndex = 4;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.DataBindings.Add(new Binding("Checked", BS_Config, "InPlace", true));
+            checkBox2.Location = new Point(3, 3);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(132, 19);
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "Sort in source folder";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.DataBindings.Add(new Binding("Checked", BS_Config, "CreateNew", true));
+            checkBox3.Location = new Point(141, 3);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(124, 19);
+            checkBox3.TabIndex = 1;
+            checkBox3.Text = "Create new folders";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.DataBindings.Add(new Binding("Checked", BS_Config, "SearchFolder", true));
+            checkBox1.Location = new Point(271, 3);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(95, 19);
+            checkBox1.TabIndex = 1;
+            checkBox1.Text = "Search folder";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1,
-            this.B_About});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(969, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, B_About });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(997, 25);
+            toolStrip1.TabIndex = 3;
+            toolStrip1.Text = "l";
             // 
             // toolStripDropDownButton1
             // 
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MI_Save,
-            this.MI_Load,
-            this.MI_Delete});
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 22);
-            this.toolStripDropDownButton1.Text = "Profiles";
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { MI_Save, MI_Load, MI_Delete });
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(59, 22);
+            toolStripDropDownButton1.Text = "Profiles";
             // 
             // MI_Save
             // 
-            this.MI_Save.Name = "MI_Save";
-            this.MI_Save.Size = new System.Drawing.Size(107, 22);
-            this.MI_Save.Text = "Save";
-            this.MI_Save.Click += new System.EventHandler(this.MI_Save_Click);
+            MI_Save.Image = Icons8.Save16;
+            MI_Save.Name = "MI_Save";
+            MI_Save.Size = new Size(107, 22);
+            MI_Save.Text = "Save";
+            MI_Save.Click += MI_Save_Click;
             // 
             // MI_Load
             // 
-            this.MI_Load.Name = "MI_Load";
-            this.MI_Load.Size = new System.Drawing.Size(107, 22);
-            this.MI_Load.Text = "Load";
+            MI_Load.Name = "MI_Load";
+            MI_Load.Size = new Size(107, 22);
+            MI_Load.Text = "Load";
             // 
             // MI_Delete
             // 
-            this.MI_Delete.Name = "MI_Delete";
-            this.MI_Delete.Size = new System.Drawing.Size(107, 22);
-            this.MI_Delete.Text = "Delete";
+            MI_Delete.Name = "MI_Delete";
+            MI_Delete.Size = new Size(107, 22);
+            MI_Delete.Text = "Delete";
             // 
             // B_About
             // 
-            this.B_About.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.B_About.Image = global::RegexFileSorterWF.Icons8.Info16;
-            this.B_About.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.B_About.Name = "B_About";
-            this.B_About.Size = new System.Drawing.Size(60, 22);
-            this.B_About.Text = "About";
-            this.B_About.Click += new System.EventHandler(this.B_About_Click);
+            B_About.Alignment = ToolStripItemAlignment.Right;
+            B_About.Image = Icons8.Info16;
+            B_About.ImageTransparentColor = Color.Magenta;
+            B_About.Name = "B_About";
+            B_About.Size = new Size(60, 22);
+            B_About.Text = "About";
+            B_About.Click += B_About_Click;
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(969, 498);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.toolStrip1);
-            this.MinimumSize = new System.Drawing.Size(500, 500);
-            this.Name = "FormMain";
-            this.Text = "RegexFileSorter";
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BS_Config)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.flowLayoutPanel3.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(997, 623);
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tableLayoutPanel2);
+            Controls.Add(toolStrip1);
+            MinimumSize = new Size(500, 500);
+            Name = "FormMain";
+            Text = "RegexFileSorter";
+            Load += FormMain_Load;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            CMS_Tree.ResumeLayout(false);
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)BS_Config).EndInit();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel1;
-        private ListView LV_Unsorted;
-        private ListView LV_Sorted;
         private Button B_Move;
         private BindingSource BS_Config;
         private ToolStrip toolStrip1;
@@ -473,18 +519,24 @@
         private Label label1;
         private Label label2;
         private Button B_SelectD;
-        private Label label3;
-        private Label label4;
+        private Label L_CountUnsorted;
+        private Label L_CountSorted;
         private FlowLayoutPanel flowLayoutPanel3;
-        private TextBox textBox1;
-        private Label label5;
         private Button B_Sort;
-        private Label L_Count;
         private CheckBox checkBox2;
         private CheckBox checkBox3;
         private CheckBox checkBox1;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
         private ToolStripButton B_About;
+        private TreeView TV_Sorted;
+        private TreeView TV_Unsorted;
+        private TextBox textBox2;
+        private TableLayoutPanel tableLayoutPanel4;
+        private TextBox textBox3;
+        private Label label6;
+        private Label label7;
+        private ContextMenuStrip CMS_Tree;
+        private ToolStripMenuItem MI_CopyName;
+        private ToolStripMenuItem MI_OpenFolder;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 
-namespace RegexFileSorter
+namespace RegexFileSorterWF
 {
     public partial class FormAbout : Form
     {
         public FormAbout()
         {
             InitializeComponent();
+            this.AddStyleDataBindigs();
             L_Version.Text = $"v{Application.ProductVersion}";
         }
 
