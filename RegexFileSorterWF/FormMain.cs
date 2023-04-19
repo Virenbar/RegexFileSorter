@@ -23,7 +23,6 @@ namespace RegexFileSorterWF
         private static void RefreshTree(TreeView tree, IEnumerable<GroupedFiles> groups)
         {
             tree.BeginUpdate();
-            var m = groups.Max(G => G.Name);
             tree.Nodes.Clear();
             var nodes = groups.Select(g => new GroupTreeNode(g)).ToArray();
             tree.Nodes.AddRange(nodes);
@@ -47,7 +46,6 @@ namespace RegexFileSorterWF
                 {
                     ProfileManager.SetCurrent(profile.Key);
                     BS_Config.DataSource = ProfileManager.Current;
-                    //RefreshMenu();
                     RefreshUI();
                 };
                 MI_Load.DropDownItems.Add(Load);
@@ -105,11 +103,6 @@ namespace RegexFileSorterWF
 
         private void B_Sort_Click(object sender, EventArgs e) => SortFiles();
 
-        private void BS_Config_CurrentItemChanged(object sender, EventArgs e)
-        {
-            //TODO
-        }
-
         private void MI_CopyName_Click(object sender, EventArgs e)
         {
             if (Group is null) { return; }
@@ -140,11 +133,7 @@ namespace RegexFileSorterWF
                 // Ask for overwrite
                 var Result = this.AskYesNoCancel($"Profile \"{Name}\" already exists.\nOverwrite it?", "Warning");
                 if (Result == DialogResult.Cancel) { return; }
-                Done = Result switch
-                {
-                    DialogResult.Yes => true,
-                    _ => false
-                };
+                Done = Result == DialogResult.Yes;
             }
             ProfileManager.Add(Name);
             RefreshUI();

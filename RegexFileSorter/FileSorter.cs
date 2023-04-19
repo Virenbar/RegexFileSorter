@@ -45,8 +45,6 @@ namespace RegexFileSorter
                     var T = Regex.Replace(name, profile.Pattern, profile.Replacement);
                     Matches.Add((File, T));
                 }
-                //var M = R.Match(Path.GetFileName(File));
-                //if (M.Success) { Matches.Add((File, M.Groups["S"].Value)); }
             }
 
             var Lookup = Matches.ToLookup(X => X.Match, X => X.Path);

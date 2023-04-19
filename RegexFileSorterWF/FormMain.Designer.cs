@@ -218,7 +218,6 @@
             // BS_Config
             // 
             BS_Config.DataSource = typeof(RegexFileSorter.Profile);
-            BS_Config.CurrentItemChanged += BS_Config_CurrentItemChanged;
             // 
             // tableLayoutPanel2
             // 
