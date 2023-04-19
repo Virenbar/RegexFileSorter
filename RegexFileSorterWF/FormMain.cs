@@ -140,24 +140,21 @@ namespace RegexFileSorterWF
             RefreshMenu();
         }
 
+        private void TV_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if ((e.Node?.Parent ?? e.Node) is GroupTreeNode GTN)
+            {
+                Group = GTN.Group;
+            }
+            RefreshUI();
+        }
+
         private void TV_MouseDown(object sender, MouseEventArgs e)
         {
             if (sender is TreeView tv && e.Button == MouseButtons.Right)
             {
                 tv.SelectedNode = tv.GetNodeAt(e.X, e.Y);
             }
-        }
-
-        private void TV_Sorted_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            Group = ((GroupTreeNode)TV_Sorted.SelectedNode)?.Group;
-            RefreshUI();
-        }
-
-        private void TV_Unsorted_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            Group = ((GroupTreeNode)TV_Unsorted.SelectedNode)?.Group;
-            RefreshUI();
         }
 
         #endregion UI Events

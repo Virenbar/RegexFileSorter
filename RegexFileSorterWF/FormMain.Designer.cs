@@ -131,7 +131,7 @@
             TV_Unsorted.Name = "TV_Unsorted";
             TV_Unsorted.Size = new Size(492, 410);
             TV_Unsorted.TabIndex = 5;
-            TV_Unsorted.AfterSelect += TV_Unsorted_AfterSelect;
+            TV_Unsorted.AfterSelect += TV_AfterSelect;
             TV_Unsorted.MouseDown += TV_MouseDown;
             // 
             // CMS_Tree
@@ -164,7 +164,7 @@
             TV_Sorted.Name = "TV_Sorted";
             TV_Sorted.Size = new Size(493, 410);
             TV_Sorted.TabIndex = 5;
-            TV_Sorted.AfterSelect += TV_Sorted_AfterSelect;
+            TV_Sorted.AfterSelect += TV_AfterSelect;
             TV_Sorted.MouseDown += TV_MouseDown;
             // 
             // L_CountUnsorted
