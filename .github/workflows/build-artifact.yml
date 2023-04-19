@@ -18,16 +18,13 @@ jobs:
     name: Build
     strategy:
       matrix:
-        configuration: [Release]
         profile: [win, win-self]
     runs-on: windows-latest
     env:
       DOTNET_NOLOGO: true
-      SolutionName: RegexFileSorter.sln
-      Configuration: ${{ matrix.configuration }}
-      Profile: ${{ matrix.profile }}
+      PROFILE: ${{ matrix.profile }}
     outputs:
-      version: ${{steps.version.outputs.version}}
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -54,16 +51,14 @@ jobs:
       - name: Build solution
         run: |
           dotnet restore --locked-mode
-          dotnet build -c $env:Configuration
+          dotnet build -c Release
 
       - name: Build artifact
-        if: matrix.configuration == 'Release'
-        run: dotnet publish -c Release -p:PublishProfile=$env:Profile /property:Version=$env:VERSION
+        run: dotnet publish -c Release -p:PublishProfile=$env:PROFILE /property:Version=$env:VERSION
 
       - name: Upload artifact
-        if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v3
         with:
           name: RegexFileSorter(${{ matrix.profile }})
-          path: RegexFileSorterWF\bin\Release\net6.0-windows\publish\${{ matrix.profile }}\RegexFileSorterWF.exe
+          path: RegexFileSorterWF\publish\${{ matrix.profile }}\RegexFileSorterWF.exe
           if-no-files-found: error
