@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="200"
+             x:Class="RegexFileSorterAVL.Controls.InputWindow">
+	<StackPanel>
+		<TextBox Margin="5" />
+		<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+			<Button  Width="100">
+				<TextBlock HorizontalAlignment="Center">OK</TextBlock>
+			</Button>
+			<Button  Width="100">
+				<TextBlock HorizontalAlignment="Center" >Cancel</TextBlock>
+			</Button>
+		</StackPanel>
+	</StackPanel>
+</UserControl>
