@@ -80,11 +80,13 @@ namespace RegexFileSorter
                 group.IsSorted = true;
                 group.Status = $@"Folder: ""{group.Name}""";
             }
-            else if (profile.SearchFolder)
+            else if (!profile.StrictMode)
             {
                 foreach (var (FolderName, Folder) in outDirectories)
                 {
-                    if (FolderName.ToLowerInvariant().Contains(group.Name.ToLowerInvariant()))
+                    var folder = FolderName.ToLowerInvariant();
+                    var name = group.Name.ToLowerInvariant();
+                    if (folder.Contains(name))
                     {
                         group.Path = Folder;
                         group.IsSorted = true;

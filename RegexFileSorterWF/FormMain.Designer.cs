@@ -58,7 +58,7 @@
             checkBox2 = new CheckBox();
             checkBox3 = new CheckBox();
             checkBox1 = new CheckBox();
-            toolStrip1 = new ToolStrip();
+            TS_Menu = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             MI_Save = new ToolStripMenuItem();
             MI_Load = new ToolStripMenuItem();
@@ -72,7 +72,7 @@
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            TS_Menu.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -384,13 +384,13 @@
             flowLayoutPanel3.Controls.Add(checkBox1);
             flowLayoutPanel3.Location = new Point(86, 98);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(369, 25);
+            flowLayoutPanel3.Size = new Size(361, 25);
             flowLayoutPanel3.TabIndex = 4;
             // 
             // checkBox2
             // 
             checkBox2.AutoSize = true;
-            checkBox2.DataBindings.Add(new Binding("Checked", BS_Config, "InPlace", true));
+            checkBox2.DataBindings.Add(new Binding("Checked", BS_Config, "InPlace", true, DataSourceUpdateMode.OnPropertyChanged));
             checkBox2.Location = new Point(3, 3);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(132, 19);
@@ -401,7 +401,7 @@
             // checkBox3
             // 
             checkBox3.AutoSize = true;
-            checkBox3.DataBindings.Add(new Binding("Checked", BS_Config, "CreateNew", true));
+            checkBox3.DataBindings.Add(new Binding("Checked", BS_Config, "CreateNew", true, DataSourceUpdateMode.OnPropertyChanged));
             checkBox3.Location = new Point(141, 3);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(124, 19);
@@ -412,23 +412,23 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.DataBindings.Add(new Binding("Checked", BS_Config, "SearchFolder", true));
+            checkBox1.DataBindings.Add(new Binding("Checked", BS_Config, "StrictMode", true, DataSourceUpdateMode.OnPropertyChanged));
             checkBox1.Location = new Point(271, 3);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(95, 19);
+            checkBox1.Size = new Size(87, 19);
             checkBox1.TabIndex = 1;
-            checkBox1.Text = "Search folder";
+            checkBox1.Text = "Strict mode";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // toolStrip1
+            // TS_Menu
             // 
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, B_About });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(997, 25);
-            toolStrip1.TabIndex = 3;
-            toolStrip1.Text = "l";
+            TS_Menu.GripStyle = ToolStripGripStyle.Hidden;
+            TS_Menu.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, B_About });
+            TS_Menu.Location = new Point(0, 0);
+            TS_Menu.Name = "TS_Menu";
+            TS_Menu.Size = new Size(997, 25);
+            TS_Menu.TabIndex = 3;
+            TS_Menu.Text = "l";
             // 
             // toolStripDropDownButton1
             // 
@@ -475,7 +475,7 @@
             ClientSize = new Size(997, 623);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(tableLayoutPanel2);
-            Controls.Add(toolStrip1);
+            Controls.Add(TS_Menu);
             MinimumSize = new Size(500, 500);
             Name = "FormMain";
             Text = "RegexFileSorter";
@@ -494,8 +494,8 @@
             tableLayoutPanel4.PerformLayout();
             flowLayoutPanel3.ResumeLayout(false);
             flowLayoutPanel3.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            TS_Menu.ResumeLayout(false);
+            TS_Menu.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -506,7 +506,7 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button B_Move;
         private BindingSource BS_Config;
-        private ToolStrip toolStrip1;
+        private ToolStrip TS_Menu;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem MI_Load;
         private ToolStripMenuItem MI_Save;

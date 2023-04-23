@@ -10,11 +10,11 @@
         {
             SourceFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             TargetFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Pattern = @"^([\w]+?)_.*";//^\d+\.([\w-]+?)_
+            Pattern = @"^(\w+?)_.*";//^\d+\.([\w-]+?)_
             Replacement = "$1";
             InPlace = false;
             CreateNew = false;
-            SearchFolder = true;
+            StrictMode = false;
         }
 
         protected Profile(Profile config)
@@ -25,7 +25,7 @@
             Replacement = config.Replacement;
             InPlace = config.InPlace;
             CreateNew = config.CreateNew;
-            SearchFolder = config.SearchFolder;
+            StrictMode = config.StrictMode;
         }
 
         public Profile Clone() => new(this);
@@ -41,8 +41,6 @@
 
         public string Replacement { get; set; }
 
-        public bool SearchFolder { get; set; }
-
         public string SourceFolder
         {
             get => sourceFolder;
@@ -53,6 +51,8 @@
                 OnPropertyChanged();
             }
         }
+
+        public bool StrictMode { get; set; }
 
         public string TargetFolder
         {

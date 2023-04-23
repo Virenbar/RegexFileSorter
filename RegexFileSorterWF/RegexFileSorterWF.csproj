@@ -15,18 +15,14 @@
 
 	<PropertyGroup>
 		<DeleteExistingFiles>true</DeleteExistingFiles>
-		<PublishSingleFile>true</PublishSingleFile>
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 	</PropertyGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.4" />
 		<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
