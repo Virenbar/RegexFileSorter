@@ -22,9 +22,14 @@ namespace RegexFileSorterWF
 
         private static void RefreshTree(TreeView tree, IEnumerable<GroupedFiles> groups)
         {
+            var nodes = groups
+                .OrderBy(g => g.Name)
+                .OrderByDescending(g => g.Files.Count)
+                .Select(g => new GroupTreeNode(g))
+                .ToArray();
+
             tree.BeginUpdate();
             tree.Nodes.Clear();
-            var nodes = groups.Select(g => new GroupTreeNode(g)).ToArray();
             tree.Nodes.AddRange(nodes);
             tree.EndUpdate();
         }
