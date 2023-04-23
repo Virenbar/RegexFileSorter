@@ -29,5 +29,15 @@ namespace RegexFileSorterWF
             var property = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
             property?.SetValue(control, state, null);
         }
+
+        public static DialogResult ShowError(this Form form, string text, string caption)
+        {
+            return MessageBox.Show(form, text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static DialogResult ShowWarning(this Form form, string text, string caption)
+        {
+            return MessageBox.Show(form, text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
     }
 }

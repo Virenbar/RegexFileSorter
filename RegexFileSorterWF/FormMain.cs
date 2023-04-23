@@ -76,11 +76,25 @@ namespace RegexFileSorterWF
 
         private void SortFiles()
         {
-            Sorter = new(ProfileManager.Current);
-            Sorter.SortFiles();
-            RefreshTree(TV_Sorted, Sorter.SortedGroups);
-            RefreshTree(TV_Unsorted, Sorter.UnsortedGroups);
-            RefreshUI();
+            var Profile = ProfileManager.Current;
+            if (string.IsNullOrWhiteSpace(Profile.Pattern))
+            {
+                this.ShowWarning("Regex pattern is empty", "Empty Pattern");
+                return;
+            }
+
+            try
+            {
+                Sorter = new(Profile);
+                Sorter.SortFiles();
+                RefreshTree(TV_Sorted, Sorter.SortedGroups);
+                RefreshTree(TV_Unsorted, Sorter.UnsortedGroups);
+                RefreshUI();
+            }
+            catch (RegexParseException E)
+            {
+                this.ShowError(E.Message, "Invalid regex expression");
+            }
         }
 
         #region UI Events
@@ -151,9 +165,9 @@ namespace RegexFileSorterWF
 
         private void TV_MouseDown(object sender, MouseEventArgs e)
         {
-            if (sender is TreeView tv && e.Button == MouseButtons.Right)
+            if (sender is TreeView TV && e.Button == MouseButtons.Right)
             {
-                tv.SelectedNode = tv.GetNodeAt(e.X, e.Y);
+                TV.SelectedNode = TV.GetNodeAt(e.X, e.Y);
             }
         }
 
